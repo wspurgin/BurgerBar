@@ -1,24 +1,74 @@
-<!DOCTYPE html>
 <html>
 <head>
+	<title>Burger Bar</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
 <body>
-	<h4>Sign Up</h4>
-	<form>
-		<fieldset>
-			<legend>sign up</legend>
-				<ul>
-					<li><label for="fName">First Name:</label><input type="text" name="fName" id="fName" placeholder="Enter your First Name here" required /></li>
-					<li><label for="lName">Last Name:</label><input type="text" name="lName" id="lName" placeholder="Enter your Last Name here" required /></li>
-					<li><label for="email">Email:</label><input type="email" name="email" id="email" placeholder="Enter your Email here" required /></li>
-					<li><label for="password">Password:</label><input type="password" name="password" id="password" placeholder="Enter your password here" required /></li>
-					<li><label for="cardProvider">Card Provider:</label><input type="text" name="cardProvider" id="cardProvider" placeholder="Enter your Credit Provider here" required /></li>
-					<li><label for="cardNumber">Card Number:</label><input type="number" name="cardNumber" id="cardNumber" placeholder="Enter your 16 Digit CC Number" minlength=16 maxlength=16 required /></li>
-					<li><input type="submit" value="Sign Up"</li>
-				</ul>
-		</fieldset>
-	</form>
+	<div class="wrapper">
+
+
+<span class="topArrow">
+<
+</span>
+
+<div class="loginMenu"> 
+
+	<table>
+		<tr>
+			<td>Username:</td>
+			<td> <input type="text"> </td>
+		</tr>
+
+		<tr>
+			<td>Password</td>
+			<td> <input type="password"> </td>
+		</tr>
+	</table>
+
+	 <span class="login"> <a href="menu.html">Login  </a> </span> 
+
+	</div>
+
+	<header>
+		<h1> Burger Bar </h1>
+	</header>
+	<div id="burgerContainer">
+
+		<div id="order_placed">
+
+				<fieldset id="order_placed">
+		<legend>SignUp</legend>
+			
+			<table class="table_menu placeorder">
+<tr class="tab_row">
+<td> First Name: </td>   <td> <input type="text" name="firstname"> </td> 
+<td> Last Name: </td>   <td> <input type="text" name="lastname"> </td>  
+</tr>
+
+<tr class="tab_row">
+<td> Email: </td>   <td> <input type="text" name="firstname"> </td> 
+<td> Password: </td>   <td> <input type="password" name="lastname"> </td>  
+</tr>
+
+<tr class="tab_row">
+<td> Card Provider: </td>   <td> <input type="text" name="firstname2"> </td> 
+<td> Card Number</td>   <td> <input type="text" name="card_number"> </td>  
+</tr>
+			</table>
+
+
+
+			<div style="margin-top:20px; width:110px;" id="button_standard">Signup</div>
+	</fieldset>
+
+
+		</div>
+
+	</div>
+
+</div>
+
 </body>
 </html>
