@@ -1,0 +1,197 @@
+
+
+body{
+
+	margin: 0 ;
+	font-family: 'Indie Flower', cursive;
+}
+
+a{
+	color: black;
+text-decoration: none;
+}
+
+div.wrapper_placeOrder{
+
+	height: 130%;
+		width: 100%;
+background: url(../images/food/food.png);
+position: relative;
+}
+
+div.wrapper{
+
+width: 100%;
+height: 110%;
+background: url(../images/food/food.png);
+
+}
+
+
+div.wrapper_menu{
+
+	width: 100%;
+height: 222%;
+background: url(../images/food/food.png);
+position: relative;
+}
+
+header{
+
+	width: 100%;
+	height: 100px;
+	text-align: center; 
+	background-color: rgb(129, 89, 39);;
+
+}
+
+
+header img{
+
+	margin-top:-2px;
+}
+
+
+header h1{
+	padding-top: 20px;
+padding-right: 10px;
+}
+
+div#burgerContainer{
+
+	
+
+	width: 100%;
+	
+}
+
+
+div#burgerHere{
+	margin: 0 auto;
+	width: 30%;
+margin-top: 200px;
+}
+
+
+div#burgerHere img{
+	width:100%;
+	margin-left: -20px;
+}
+
+
+div.makeAnOrder{
+
+	padding: 10px;
+font-size: 20px;
+border-style: solid;
+text-align: center;
+font-weight: bold;
+background-color: rgb(129, 89, 39);
+}
+
+span.topArrow{
+position: absolute;
+top: 105px;
+left: 310px;
+width: 30px;
+height: 25px;
+border-radius: 4px;
+background-color: rgb(129, 89, 39);
+/* padding: 5px; */
+padding-bottom: 25px;
+font-size: 40px;
+}
+
+
+span.topArrow img{
+	width: 30px;
+}
+
+
+div.loginMenu{
+
+width: 310px;
+height: 170px;
+position: absolute;
+border-radius: 25px;
+top: 100px;
+left: 0px;
+border: solid;
+border-radius: 25px;
+
+}
+
+
+
+table{
+	margin-top: 40px;
+margin-left: 40px;
+
+}
+
+
+
+div.loginMenu span{
+	padding-left: 7px;
+padding-right: 7px;
+	border: solid;
+	margin-left: 40px;
+	font-size: 14px;
+}
+
+
+span.signup{
+	position: absolute;
+	top: 110px;
+	left:40px;
+
+}
+
+span.login{
+	position: absolute;
+	
+	top: 110px;
+left: 130px;
+
+}
+
+
+
+#order_placed{
+	margin-top: 270PX;
+width: 600PX;
+margin-left: auto;
+margin-right: auto;
+}	
+
+
+
+#order_placed h1{
+	text-align: center;
+}
+
+#button_standard{
+margin: 0 auto;
+width: 60px;
+background-color: rgb(129, 89, 39);
+font-weight: bold;
+padding: 5px;
+text-align: center;
+
+}
+
+span.button_standard{
+margin: 0 auto;
+width: 60px;
+background-color: rgb(129, 89, 39);
+font-weight: bold;
+padding: 5px;
+text-align: center;
+
+}
+
+
+
+
+
+
