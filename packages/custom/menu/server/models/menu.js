@@ -15,7 +15,7 @@ var meatSchema = new Schema ({
 		required: true
 	},
 	price : {
-		type: float,
+		type: Number,
 		required: true
 	}
 });
@@ -29,7 +29,7 @@ var bunsSchema = new Schema ({
 		required: true
 	},
 	price: {
-		type: float,
+		type: Number,
 		required: true
 	}
 });
@@ -43,7 +43,7 @@ var cheesesSchema = new Schema ({
 		required: true
 	},
 	price: {
-		type: float,
+		type: Number,
 		required: true
 	}
 });
@@ -57,7 +57,7 @@ var toppingsSchema = new Schema ({
 		required: true
 	},
 	price: {
-		type: float,
+		type: Number,
 		required: true
 	}
 });
@@ -71,7 +71,7 @@ var saucesSchema = new Schema ({
 		required: true
 	},
 	price: {
-		type: float,
+		type: Number,
 		required: true
 	}
 });
@@ -85,7 +85,7 @@ var sidesSchema = new Schema ({
 		required: true
 	},
 	price: {
-		type: float,
+		type: Number,
 		required: true
 	}
 });
@@ -121,7 +121,7 @@ var burgerSchema = new Schema ({
 		required: true
 	},
 	price: {
-		type: float,
+		type: Number,
 		required: true
 	}
 });
@@ -138,13 +138,13 @@ var orderSchema = new Schema ({
 		type: Schema.ObjectId,
 		ref:'User',
 		required: true
-	}
+	},
 	mainItems: {
 		type: Array,
 		required: true
-	}
+	},
 	sideItems: {
-		type: Array
+		type: Array,
 		required: false
 	}
 });
