@@ -148,3 +148,12 @@ var orderSchema = new Schema ({
 		required: false
 	}
 });
+
+mongoose.model('Order', orderSchema);
+mongoose.model('Burger', burgerSchema);
+mongoose.model('Side', sidesSchema);
+mongoose.model('Sauce', saucesSchema);
+mongoose.model('Topping', toppingsSchema);
+mongoose.model('Cheese', cheesesSchema);
+mongoose.model('Bun', bunsSchema);
+mongoose.model('Meat', meatSchema);
