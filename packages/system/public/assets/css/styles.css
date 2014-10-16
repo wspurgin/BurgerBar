@@ -1,0 +1,336 @@
+
+
+body{
+
+	margin: 0 ;
+	font-family: 'Indie Flower', cursive;
+}
+
+a{
+	color: black;
+text-decoration: none;
+}
+
+div.wrapper_placeOrder{
+
+	height: 130%;
+		width: 100%;
+background: url(../images/food/food.png);
+position: relative;
+}
+
+div.wrapper{
+
+width: 100%;
+height: 110%;
+background: url(../images/food/food.png);
+
+}
+
+
+div.wrapper_menu{
+
+	width: 100%;
+height: 222%;
+background: url(../images/food/food.png);
+position: relative;
+}
+
+header{
+
+	width: 100%;
+	height: 100px;
+	text-align: center; 
+	background-color: rgb(129, 89, 39);;
+
+}
+
+
+header img{
+
+	margin-top:-2px;
+}
+
+
+header h1{
+	padding-top: 20px;
+padding-right: 10px;
+}
+
+div#burgerContainer{
+
+	
+
+	width: 100%;
+	
+}
+
+
+div#burgerHere{
+	margin: 0 auto;
+	width: 30%;
+margin-top: 200px;
+}
+
+
+div#burgerHere img{
+	width:100%;
+	margin-left: -20px;
+}
+
+
+div.makeAnOrder{
+
+	padding: 10px;
+font-size: 20px;
+border-style: solid;
+text-align: center;
+font-weight: bold;
+background-color: rgb(129, 89, 39);
+}
+
+span.topArrow{
+position: absolute;
+top: 105px;
+left: 310px;
+width: 30px;
+height: 25px;
+border-radius: 4px;
+background-color: rgb(129, 89, 39);
+/* padding: 5px; */
+padding-bottom: 25px;
+font-size: 40px;
+}
+
+
+span.topArrow img{
+	width: 30px;
+}
+
+
+div.loginMenu{
+
+width: 310px;
+height: 170px;
+position: absolute;
+border-radius: 25px;
+top: 100px;
+left: 0px;
+border: solid;
+border-radius: 25px;
+
+}
+
+
+
+table{
+	margin-top: 40px;
+margin-left: 40px;
+
+}
+
+
+
+div.loginMenu span{
+	padding-left: 7px;
+padding-right: 7px;
+	border: solid;
+	margin-left: 40px;
+	font-size: 14px;
+}
+
+
+span.signup{
+	position: absolute;
+	top: 110px;
+	left:40px;
+
+}
+
+span.login{
+	position: absolute;
+	
+	top: 110px;
+left: 130px;
+
+}
+
+
+
+#order_placed{
+	margin-top: 270PX;
+width: 600PX;
+margin-left: auto;
+margin-right: auto;
+}	
+
+
+
+#order_placed h1{
+	text-align: center;
+}
+
+#button_standard{
+margin: 0 auto;
+width: 60px;
+background-color: rgb(129, 89, 39);
+font-weight: bold;
+padding: 5px;
+text-align: center;
+
+}
+
+span.button_standard{
+margin: 0 auto;
+width: 60px;
+background-color: rgb(129, 89, 39);
+font-weight: bold;
+padding: 5px;
+text-align: center;
+
+}
+
+
+/*
+
+Menu Page Css Here
+
+*/
+
+#left_column{
+
+	width: 50%;
+	float: left;
+}
+
+#right_column{
+		width: 50%;
+	float: left;
+}
+
+#current_order{
+	width: 600PX;
+margin-left: auto;
+margin-right: auto;
+margin-top: 40px;
+}
+
+
+td.first{
+	width: 200px;
+	padding-right: 30px;
+}
+
+.second{
+	padding-right: 25px;
+}
+
+#left_column th{
+	text-decoration: underline;
+}
+
+
+
+span.reorder{
+	margin-left: 40px;
+}
+
+
+hr { display: block; height: 1px;
+    border: 0; border-top: 2px solid #221C1C;
+    margin: 1em 0; padding: 0; }
+
+
+.table_menu{
+	margin-top: 40px;
+}
+
+
+legend{
+	font-weight: bolder;
+}
+
+
+ul.burger_option{
+	margin-top: 280px;
+	border: 1px solid;
+	list-style: none;
+}
+
+ul.burger_option li{
+	width: 100%;
+
+}
+ul.burger_option span{
+
+}
+div.have_options input{
+	margin-left: 30px;
+	margin-top: 20px;
+margin-bottom: 20px;
+
+}
+
+div.have_options{
+	padding-bottom: 35px;
+}
+
+div.selected{
+	background-color: blue;
+display: inherit;
+margin-top: -17px;
+margin-left: -40px;
+border: 1px solid;
+padding-left: 5px;
+}
+
+div.options_head{
+
+display: inherit;
+margin-top: -17px;
+margin-left: -40px;
+border: 1px solid;
+padding-left: 5px;
+
+}
+
+table.placeorder{
+	margin-bottom: 20px;
+}
+
+
+fieldset.page_current_order{
+
+	margin-top: 270px;
+}
+
+#left_column th {
+text-decoration: underline;
+text-align: left;
+}
+
+
+.scroller{
+	width: 40px;
+background: transparent;
+}
+
+
+tr.tab_row > td
+{
+  padding-bottom: 1em;
+}
+
+
+footer{
+width: 100%;
+height: 50px;
+background-color: rgb(129, 89, 39);
+text-align: center;
+color: white;
+padding-top: 20px;
+clear: both;
+}
+
+
+

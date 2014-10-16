@@ -19,6 +19,7 @@ System.register(function(app, auth, database) {
   System.routes(app, auth, database);
 
   System.aggregateAsset('css', 'common.css');
+  System.aggregateAsset('css', 'styles.css');
 
   // The middleware in config/express will run before this code
 
@@ -30,6 +31,8 @@ System.register(function(app, auth, database) {
 
   // Adding robots and humans txt
   app.use(express.static(__dirname + '/public/assets/static'));
+
+  app.use('/img', express.static(__dirname + '/public/assets/img'));
 
   return System;
 });
