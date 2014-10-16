@@ -18,6 +18,7 @@ var mongoose = require('mongoose'),
  */
 exports.fullMenu = function(req, res) {
   var menu = {};
+
   Meat.find()
   .exec(function(err, meats){
     if (err) res.send(err);
@@ -53,8 +54,6 @@ exports.fullMenu = function(req, res) {
     if (err) res.send(err);
     else menu.bun = bun;
   });
-
-
 
   // Other menu items here
   res.status(200).json(menu);
