@@ -24,11 +24,11 @@ var meatSchema = new Schema ({
 * bun schema 
 */
 var bunsSchema = new Schema ({
-	name {
+	name: {
 		type: String,
 		required: true
 	},
-	price {
+	price: {
 		type: float,
 		required: true
 	}
@@ -38,11 +38,11 @@ var bunsSchema = new Schema ({
 * cheese schema 
 */
 var cheesesSchema = new Schema ({
-	name {
+	name: {
 		type: String,
 		required: true
 	},
-	price {
+	price: {
 		type: float,
 		required: true
 	}
@@ -52,11 +52,11 @@ var cheesesSchema = new Schema ({
 * topping schema 
 */
 var toppingsSchema = new Schema ({
-	name {
+	name: {
 		type: String,
 		required: true
 	},
-	price {
+	price: {
 		type: float,
 		required: true
 	}
@@ -66,11 +66,11 @@ var toppingsSchema = new Schema ({
 * sauce schema 
 */
 var saucesSchema = new Schema ({
-	name {
+	name: {
 		type: String,
 		required: true
 	},
-	price {
+	price: {
 		type: float,
 		required: true
 	}
@@ -80,11 +80,11 @@ var saucesSchema = new Schema ({
 * side schema 
 */
 var sidesSchema = new Schema ({
-	name {
+	name: {
 		type: String,
 		required: true
 	},
-	price {
+	price: {
 		type: float,
 		required: true
 	}
@@ -95,36 +95,32 @@ var sidesSchema = new Schema ({
 */
 
 var burgerSchema = new Schema ({
-	id {
-		type: int,
-		required: true
-	},
-	sauce {
+	sauce: {
 		type: Schema.ObjectId,
 		ref:'sauces',
-		required: true
+		required: false
 	},
-	toppings {
+	toppings: {
 		type: Schema.ObjectId,
 		ref:'toppings',
-		required: true
+		required: false
 	},
-	cheese {
+	cheese: {
 		type: Schema.ObjectId,
 		ref:'cheeses',
-		required: true
+		required: false
 	},
-	buns {
+	buns: {
 		type: Schema.ObjectId,
 		ref:'buns',
 		required: true
 	},
-	meat {
+	meat: {
 		type: Schema.ObjectId,
 		ref:'meat',
 		required: true
 	},
-	price {
+	price: {
 		type: float,
 		required: true
 	}
@@ -134,17 +130,21 @@ var burgerSchema = new Schema ({
 * order schema
 */
 var orderSchema = new Schema ({
-	id {
-		type: int,
-		required: true
-	},
-	timeplaced {
+	timePlaced: {
 		type: Date,
 		default: Date.now
 	},
-	user {
+	user: {
 		type: Schema.ObjectId,
 		ref:'User',
 		required: true
+	}
+	mainItems: {
+		type: Array,
+		required: true
+	}
+	sideItems: {
+		type: Array
+		required: false
 	}
 });
