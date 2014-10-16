@@ -10,11 +10,11 @@ Schema = mongoose.Schema;
 * Order functions
 */
 
-var viewAttributes = function(){};
+var viewAttributes = function(value){};
 
-var cancelOrder = function(){};
+var cancelOrder = function(value){};
 
-var submitOrder = function(){};
+var submitOrder = function(value){};
 
 var addItemToOrder = function(value){};
 
