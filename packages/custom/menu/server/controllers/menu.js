@@ -17,9 +17,12 @@ var mongoose = require('mongoose'),
  * Get Full menu
  */
 exports.fullMenu = function(req, res) {
-  var menu = {
-    meats: Meat.find()
-    // Other menu items here
-  };
-  res.json(menu);
+  var menu = {};
+  Meat.find()
+  .exec(function(err, meats){
+    if (err) res.send(err);
+    else menu.meats = meats;
+  });
+  // Other menu items here
+  res.status(200).json(menu);
 };
