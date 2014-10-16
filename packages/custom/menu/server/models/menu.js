@@ -7,30 +7,6 @@ var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
 /**
-* Order functions
-*/
-
-var viewAttributes = function(value){};
-
-var cancelOrder = function(value){};
-
-var submitOrder = function(value){};
-
-var addItemToOrder = function(value){};
-
-var removeSideItemFromOrder = function(value){};
-
-var resetBurgerAttributes = function(){};
-
-/**
-* Burger Item Functions
-*/
-
-var addToBurger = function(value) {};
-
-var removeFromBurger = function(value) {};
-
-/**
 * meat sub-menu schema
 */
 var meatSchema = new Schema ({
@@ -172,3 +148,49 @@ var orderSchema = new Schema ({
 		required: true
 	}
 });
+
+/**
+* functions
+*/
+
+meatSchema.methods = {
+	addToBurger: function(meat){},
+	removeFromBurger: function(meat){}
+}
+
+bunsSchema.methods = {
+	addToBurger: function(buns){},
+	removeFromBurger: function(buns){}
+}
+
+cheesesSchema.methods = {
+	addToBurger: function(cheese){},
+	removeFromBurger: function(cheese){}
+}
+
+toppingsSchema.methods = {
+	addToBurger: function(topping){},
+	removeFromBurger: function(topping){}
+}
+
+saucesSchema.methods = {
+	addToBurger: function(sauce){},
+	removeFromBurger: function(sauce){}
+}
+
+sidesSchema.methods = {
+	addToOrder: function(sideItem){},
+	removeFromOrder: function(sideItem){}
+}
+
+burgerSchema.methods = {
+	addToOrder: function(burger){},
+	removeFromOrder: function(burger){},
+	viewAttributes: function(burger){},
+	clearAttributes: function(burger){}
+}
+
+orderSchema.methods = {
+	cancelOrder: function(order){},
+	submitOrder: function(order){}
+}
