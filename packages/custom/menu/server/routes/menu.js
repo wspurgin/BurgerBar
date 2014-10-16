@@ -1,9 +1,12 @@
 'use strict';
  
-var menus = require('../controllers/menu');
+var menu = require('../controllers/menu');
  
 module.exports = function(Menu, app, auth, database, passport) {
   
-  app.get('/menu', menus.fullMenu);
+  app.get('/menu', menu.fullMenu);
+
+
+  app.get('/', index.render);
     
 };
