@@ -9,10 +9,10 @@ var mongoose = require('mongoose'),
   Sauce = mongoose.model('Sauce'),
   Topping = mongoose.model('Topping'),
   Cheese = mongoose.model('Cheese'),
-  Bun = mongoose.model('Bun'),
-  async = require('async'),
-  config = require('meanio').loadConfig();
-
+  Bun = mongoose.model('Bun');
+  // async = require('async'),
+  // config = require('meanio').loadConfig();
+  
 /**
  * Get Full menu
  */
@@ -23,7 +23,7 @@ exports.fullMenu = function(req, res) {
     if (err) res.send(err);
     else menu.meats = meats;
   });
-  
+
   Side.find()
   .exec(function(err, side){
     if (err) res.send(err);
