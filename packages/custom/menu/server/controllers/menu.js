@@ -9,9 +9,9 @@ var mongoose = require('mongoose'),
   Sauce = mongoose.model('Sauce'),
   Topping = mongoose.model('Topping'),
   Cheese = mongoose.model('Cheese'),
-  Bun = mongoose.model('Bun'),
-  async = require('async'),
-  config = require('meanio').loadConfig();
+  Bun = mongoose.model('Bun');
+  // async = require('async'),
+  // config = require('meanio').loadConfig();
   
 /**
  * Get Full menu
