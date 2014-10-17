@@ -20,12 +20,11 @@
       <span class="greeting">Hi, {{global.user.name}}</span>
       <button class="loggout"><a href="/logout">Log Out</a></button>
   </div>
+  <header>
+    <a ui-sref="home"><img src="img/logo.png"></a>
+  </header>
 
-
-  <div class="logo pull-right">
-    <a class="navbar-brand" ui-sref="home" mean-token="'site-title'">BurgerBar</a>
-  </div>
-
+<!--
   <div class="left pull-left">
     <ul class="navbar-nav nav">
       <li data-ng-repeat="item in menus.main" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
@@ -33,8 +32,7 @@
       </li>
     </ul>
   </div>
-<!-- This section is the part we should use as a template for displaying different html based on logged in status -->
-<!--
+
   <div class="account">
     <div class="text-edit">
       <div class="pull-right" data-ng-show="global.authenticated" mean-token-editable></div>
