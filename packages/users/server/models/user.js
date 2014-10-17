@@ -60,10 +60,11 @@ var UserSchema = new Schema({
     },
     expiration: {
       type: String
-    }
+    },
     securityCode: {
       type: String
-    }
+    },
+    required: true
   },
   roles: {
     type: Array,
