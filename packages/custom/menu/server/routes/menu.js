@@ -2,8 +2,9 @@
  
 var menu = require('../controllers/menu');
  
-module.exports = function(app) {
+module.exports = function(Menu, app, auth, database, passport) {
   
-  app.get('/menu', menu.fullMenu);
+  app.route('/menu')
+    .get(menu.fullMenu);
     
 };
