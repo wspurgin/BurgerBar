@@ -126,7 +126,7 @@ exports.newLastOrder = function(req, res) {
     var currUser = new User(req.user);
     currUser.lastOrder = req.body.order;
   }
-}
+};
 
 /**
  * Find user by id
