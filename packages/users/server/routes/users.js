@@ -48,7 +48,7 @@ module.exports = function(MeanUser, app, auth, database, passport) {
     });
 
   // AngularJS route to get config of social buttons
-  app.route('/get-config')
+  /*app.route('/get-config')
     .get(function (req, res) {
       res.send(config);
     });
@@ -112,6 +112,6 @@ module.exports = function(MeanUser, app, auth, database, passport) {
   app.route('/auth/linkedin/callback')
     .get(passport.authenticate('linkedin', {
       failureRedirect: '#!/login'
-    }), users.authCallback);
+    }), users.authCallback); */
 
 };
