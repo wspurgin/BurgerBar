@@ -2,7 +2,7 @@
     <div ng-repeat="error in registerError">
         <div class="alert alert-danger animated fadeIn">{{error.msg}}</div>
     </div>
-    <div class="alert alert-danger animated fadeIn" ng-show="usernameError">{{usernameError}}</div>
+    <!-- <div class="alert alert-danger animated fadeIn" ng-show="usernameError">{{usernameError}}</div> -->
     <div class="alert alert-danger animated fadeIn" ng-show="emailError">{{emailError}}</div>
     <form id="register_form" ng-submit="register()">
         <h2>Sign Up</h2>
@@ -23,13 +23,13 @@
             <span class="pic email"></span>
         </div>
 
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper">
             <input required id="username" type="text" name="username" placeholder="Username"
                    ng-model="user.username">
 
             <div class="error_message">Please enter a correct info #</div>
             <span class="pic username"></span>
-        </div>
+        </div> -->
 
         <div class="input-wrapper">
             <input required id="password_block" name="password" type="{{input.type}}"
@@ -56,11 +56,6 @@
 
         <div class="button_register">
             <button type="submit" class="submit_button">Sign up</button>
-            <p>Already have an account?</p>
-            <a ui-sref='auth.login'>Log in</a>
-        </div>
-        <div class="woman_ninja_bottom">
-            <img src="/theme/assets/img/woman_ninja.png" alt="#">
         </div>
     </form>
 </div>
