@@ -8,6 +8,6 @@ module.exports = function(Menu, app, auth, database, passport) {
     .get(menu.fullMenu);
 
   app.route('/menu')
-  	.get(menu.populate);
+  	.post(menu.populate);
    
 };

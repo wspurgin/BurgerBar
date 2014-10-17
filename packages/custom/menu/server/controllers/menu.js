@@ -10,7 +10,8 @@ var mongoose = require('mongoose'),
   Topping = mongoose.model('Topping'),
   Cheese = mongoose.model('Cheese'),
   Bun = mongoose.model('Bun'),
-  fs = require('fs');
+  fs = require('fs'),
+  path = require('path');
 
   // async = require('async'),
   // config = require('meanio').loadConfig();
@@ -77,64 +78,69 @@ exports.populate = function(req, res) {
 
 
     // Parse json file 
-  fs.readFileSync('../../menu.json',
+  fs.readFile(path.join(__dirname, '../../menu.json'),
     function(fileErr, data) {
-    var json = JSON.parse(data.toString());
+      if (fileErr) console.log(fileErr);
+      var json = JSON.parse(data.toString());
+      
+      // set json to the actual root javascript menu object
+      json = json.menu;
 
-    // Populate Meat menu 
-    var i;
-    for (i = 0; i < json.meats.length; i+=1)
-    {
-      var meat = new Meat();
-      meat.name = json.meats[i].name;
-      meat.price = json.meats[i].price;
-      meat.save();
-    }
+      // Populate Meat menu 
+      var i;
+      for (i = 0; i < json.meats.length; i+=1)
+      {
+        var meat = new Meat();
+        meat.name = json.meats[i].name;
+        meat.price = json.meats[i].price;
+        meat.save();
+      }
 
-    // Populate Side menu
-    for (i = 0; i < json.sides.length; i+=1)
-    {
-      var side = new Side();
-      side.name = json.sides[i].name;
-      side.price = json.sides[i].price;
-      side.save();
-    }
+      // Populate Side menu
+      for (i = 0; i < json.sides.length; i+=1)
+      {
+        var side = new Side();
+        side.name = json.sides[i].name;
+        side.price = json.sides[i].price;
+        side.save();
+      }
 
-    // Populate Sauce menu
-    for (i = 0; i < json.sauces.length; i+=1)
-    {
-      var sauce = new Sauce();
-      sauce.name = json.sauces[i].name;
-      sauce.price = json.sauces[i].price;
-      sauce.save();
-    }
+      // Populate Sauce menu
+      for (i = 0; i < json.sauces.length; i+=1)
+      {
+        var sauce = new Sauce();
+        sauce.name = json.sauces[i].name;
+        sauce.price = json.sauces[i].price;
+        sauce.save();
+      }
 
-    // Populate Topping menu
-    for (i = 0; i < json.toppings.length; i+=1)
-    {
-      var topping = new Topping();
-      topping.name = json.toppings[i].name;
-      topping.price = json.toppings[i].price;
-      topping.save();
-    }
+      // Populate Topping menu
+      for (i = 0; i < json.toppings.length; i+=1)
+      {
+        var topping = new Topping();
+        topping.name = json.toppings[i].name;
+        topping.price = json.toppings[i].price;
+        topping.save();
+      }
 
-    // Populate Cheese menu
-    for (i = 0; i < json.cheeses.length; i+=1)
-    {
-      var cheese = new Cheese();
-      cheese.name = json.cheeses[i].name;
-      cheese.price = json.cheeses[i].price;
-      cheese.save();
-    }
+      // Populate Cheese menu
+      for (i = 0; i < json.cheeses.length; i+=1)
+      {
+        var cheese = new Cheese();
+        cheese.name = json.cheeses[i].name;
+        cheese.price = json.cheeses[i].price;
+        cheese.save();
+      }
 
-    // Populate Bun menu
-    for (i = 0; i < json.buns.length; i+=1)
-    {
-      var bun = new Bun();
-      bun.name = json.buns[i].name;
-      bun.price = json.buns[i].price;
-      bun.save();
-    } 
+      // Populate Bun menu
+      for (i = 0; i < json.buns.length; i+=1)
+      {
+        var bun = new Bun();
+        bun.name = json.buns[i].name;
+        bun.price = json.buns[i].price;
+        bun.save();
+      }
+      return res.status(201).send();
   });
 };
 
