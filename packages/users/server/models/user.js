@@ -54,17 +54,13 @@ var UserSchema = new Schema({
     unique: true,
     required: true
   },
-  creditCard: {
-    number: {
-      type: String
-    },
-    expiration: {
-      type: String
-    },
-    securityCode: {
-      type: String
-    },
-    required: true
+  creditCardNumber: {
+      type: String,
+      required: true
+  },
+  creditCardProvider: {
+      type: String,
+      required: true
   },
   roles: {
     type: Array,
