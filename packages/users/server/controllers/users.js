@@ -109,6 +109,26 @@ exports.me = function(req, res) {
 };
 
 /**
+* Last Order
+*/
+
+exports.lastOrder = function(req, res) {
+  if (req.user) {
+    res.json(req.user.lastOrder);
+  }
+  else {
+    res.json({});
+  }
+};
+
+exports.newLastOrder = function(req, res) {
+  if (req.user) {
+    var currUser = new User(req.user);
+    currUser.lastOrder = req.body.order;
+  }
+}
+
+/**
  * Find user by id
  */
 exports.user = function(req, res, next, id) {
