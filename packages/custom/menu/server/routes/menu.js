@@ -6,5 +6,8 @@ module.exports = function(Menu, app, auth, database, passport) {
   
   app.route('/menu')
     .get(menu.fullMenu);
-    
+
+  app.route('/menu')
+  	.get(menu.populate);
+   
 };
