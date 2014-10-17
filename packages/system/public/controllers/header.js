@@ -33,7 +33,6 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
         user: $rootScope.user
       };
     });
-
   }
 ])
 .controller('LoginController', ['$scope', '$rootScope', '$http', '$location', 'Global',

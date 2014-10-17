@@ -2,11 +2,52 @@
 body {
 	margin: 0 ;
 	font-family: 'Indie Flower', cursive;
+	background: url("/img/food/food.png");
 }
 
 a {
 	color: black;
 	text-decoration: none;
+}
+
+button {
+	border: solid;
+	font-size: 14px;
+	background: inherit;
+	font-family: inherit;
+	padding: 0;
+	--webkit-transition: border 0.3s ease-in;
+	transition: border 0.3s ease-in;
+}
+
+button > a {
+	display: block;
+}
+
+button:hover {
+	border: dashed;
+	cursor: pointer;
+}
+
+/* Placholder text customizing */
+::-webkit-input-placeholder {
+	font-family: 'Indie Flower', cursive;
+	color: #a5a8a9;
+}
+
+::-moz-placeholder {
+	font-family: 'Indie Flower', cursive;
+	color: #a5a8a9;
+}
+
+:-ms-input-placeholder {
+	font-family: 'Indie Flower', cursive;
+	color: #a5a8a9;
+}
+
+input:-moz-placeholder {
+	font-family: 'Indie Flower', cursive;
+	color: #a5a8a9;
 }
 
 .wrapper_placeOrder .wrapper .wrapper_menu {
@@ -34,7 +75,7 @@ header {
 	width: 100%;
 	height: 100px;
 	text-align: center; 
-	background-color: rgb(129, 89, 39);;
+	background-color: rgb(129, 89, 39);
 }
 
 header img {
@@ -91,7 +132,7 @@ span.topArrow img {
 	width: 30px;
 }
 
-.loginMenu {
+.loginMenu, .loggedInMenu {
 	width: 310px;
 	height: 170px;
 	position: absolute;
@@ -126,6 +167,7 @@ span.topArrow img {
 	outline: none;
 	width: 70%;
 	float: right;
+	background: inherit;
 }
 
 .loginMenu .form_group {
@@ -134,16 +176,31 @@ span.topArrow img {
 	font-size: 14px;
 }
 
+.loggedInMenu .loggout {
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.loggedInMenu .greeting {
+	font-size: 2em;
+	width: 50%;
+	height: 50%;
+	margin: auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	text-align: center;
+}
+
 .signup {
-	/*position: absolute;
-	top: 110px;
-	left:40px;*/
+	width: 30%;
+	margin-right: 5%;
 }
 
 .login {
-/*	position: absolute;
-	top: 110px;
-	left: 130px;*/
+	width: 30%;
+	margin-left: 5%;
 }
 
 #order_placed {
