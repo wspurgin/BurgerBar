@@ -3,11 +3,11 @@ html {
 }
 
 body.login, body.register,  body.forgot-password {
-background: url("/theme/assets/img/bg.png");
+//background: url("/theme/assets/img/bg.png");
     height: 100%;
     position: relative;
 }
-@font-face {
+/*@font-face {
     font-family: 'futura_bkbook';
     src: url("/theme/assets/fonts/ufonts.com_futura-book.eot");
     src: url("/theme/assets/fonts/ufonts.com_futura-book.eot?#iefix") format("embedded-opentype"), url("/theme/assets/fonts/ufonts.com_futura-book.woff") format("woff"), url("/theme/assets/fonts/ufonts.com_futura-book.ttf") format("truetype"), url("/theme/assets/fonts/ufonts.com_futura-book.svg#futura_bkbook") format("svg");
@@ -45,12 +45,14 @@ background: url("/theme/assets/img/bg.png");
     src: url("/theme/assets/fonts/proximanova-light.eot?#iefix") format("embedded-opentype"), url("/theme/assets/fonts/proximanova-light.woff") format("woff"), url("/theme/assets/fonts/proximanova-light.ttf") format("truetype"), url("/theme/assets/fonts/proximanova-light.svg#proxima_novalight") format("svg");
     font-weight: normal;
     font-style: normal;
-}
+}*/
 .form {
-    background: #ffffff;
-    box-shadow: 0 1px 3px 1px #003644;
+    //background: #ffffff;
+    //box-shadow: 0 1px 3px 1px #003644;
     margin-top: 35px;
-    left: 50%;
+    left: 60%;
+    top: 150px;
+    width: 50%;
     position: relative;
 }
 
@@ -62,15 +64,20 @@ background: url("/theme/assets/img/bg.png");
 
 .main-form.register-form {
     height: 622px;
-}
+} 
 
 .login-form__left {
     width: 440px;
-    height: 100%;
-    float: left;
-    padding: 34px 0 0 27px;
+    height: 47%;
+    position: relative;
+    padding-left: 30px;
+    border: solid;
+    border-radius: 25px;
+    //left: 45%;
+    //float: left;
+    //padding: 34px 0 0 27px;
 }
-
+/*
 .login-form__left h2, .forgot_password_form h2 {
     font-size: 30px;
     padding-bottom: 4px;
@@ -82,34 +89,51 @@ background: url("/theme/assets/img/bg.png");
 .login-form__left p, .forgot_password_form p {
     font-size: 16px;
     font-family: 'proxima_nova_rgregular';
-}
+} */
 
 .main-form .input-wrapper {
     position: relative;
     margin-bottom: 10px;
 }
 
-.main-form .input-wrapper input {
+.main-form .input-wrapper input, select {
     width: 401px;
-    border: 1px solid #d3d3d3;
-    border-radius: 5px;
-    padding: 18px 0 18px 16px;
+    //border: 1px solid #d3d3d3;
+    //border-radius: 5px;
+    //padding: 18px 0 18px 16px;
     outline: none;
-    font-size: 15px;
-    font-family: 'proxima_nova_rgregular';
-    line-height: 22px;
+    //font-size: 15px;
+    //font-family: 'proxima_nova_rgregular';
+    //line-height: 22px; 
+    border: 0;
+    border-bottom: solid 1px #000;
+    //width: 70%;
+    //float: right;
+    background: inherit;
+} 
+
+.main-form .input-wrapper select .placeholder {
+    display: none;
+    font-family: 'Indie Flower', cursive;
+    color: #a5a8a9;
 }
 
-.main-form .input-wrapper input:invalid {
-    box-shadow: none;
+.main-form .input-wrapper select[default] {
+    font-family: 'Indie Flower', cursive;
+    color: #a5a8a9;
 }
+
+
+/* .main-form .input-wrapper input:invalid {
+    box-shadow: none;
+} 
 
 .main-form .input-wrapper input:focus {
     border-color: #66afe9;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
-}
+} 
 
 .pic.email {
     position: absolute;
@@ -171,7 +195,7 @@ background: url("/theme/assets/img/bg.png");
 
 .icon_hide_password:hover .hide_text_password {
     display: block;
-}
+} */
 
 .error_message {
     display: none;
@@ -199,7 +223,7 @@ background: url("/theme/assets/img/bg.png");
     margin-left: -4px;
 }
 
-.login-form__left .forgot_password {
+/*.login-form__left .forgot_password {
     margin-top: -5px;
     margin-left: 8px;
 }
@@ -213,10 +237,10 @@ background: url("/theme/assets/img/bg.png");
 
 .login-form__left .button_login {
     margin-top: 23px;
-}
+} */
 
 .submit_button {
-    display: inline-block;
+    /* display: inline-block;
     border: none;
     cursor: pointer;
     background: url("/theme/assets/img/button_login.png") no-repeat 50% 50%;
@@ -224,16 +248,24 @@ background: url("/theme/assets/img/bg.png");
     height: 47px;
     font-size: 21px;
     color: white;
-    font-family: "open_sans_hebrewregular";
+    font-family: "open_sans_hebrewregular"; */
+    border: solid;
+    font-size: 14px;
+    background: inherit;
+    font-family: inherit;
+    padding: 0;
+    width: 75px;
+    --webkit-transition: border 0.3s ease-in;
+    transition: border 0.3s ease-in;
 }
 
-.submit_button:hover {
+/* .submit_button:hover {
     background: url("/theme/assets/img/button_login_hover.png") no-repeat 50% 50%;
-}
+} 
 
 .submit_button:focus {
     outline: none;
-}
+} 
 
 .button_login p,
 .button_send p,
@@ -315,9 +347,9 @@ background: url("/theme/assets/img/bg.png");
 
 .login-form__right .bigger .social {
     top: inherit;
-    -ms-transform: none; /* IE 9 */
-    -webkit-transform: none; /* Chrome, Safari, Opera */
-    transform: none;
+    -ms-transform: none; // IE 9 
+    -webkit-transform: none; // Chrome, Safari, Opera 
+    transform: none; 
 }
 
 .login-form__right .social {
@@ -329,8 +361,8 @@ background: url("/theme/assets/img/bg.png");
     top:50%;
     left:0;
     right:0;
-    -ms-transform: translate(0, -50%); /* IE 9 */
-    -webkit-transform: translate(0, -50%); /* Chrome, Safari, Opera */
+    -ms-transform: translate(0, -50%); // IE 9 
+    -webkit-transform: translate(0, -50%); // Chrome, Safari, Opera 
     transform: translate(0, -50%);
 }
 
@@ -433,13 +465,13 @@ background: url("/theme/assets/img/bg.png");
     left: -410px;
     pointer-events: none;
 }
-
+*/
 .registration_form {
     width: 440px;
     float: left;
     margin-right: 10px;
 }
-
+/*
 .forgot_password_form {
     padding: 34px 27px;
     min-height: 280px;
@@ -447,3 +479,4 @@ background: url("/theme/assets/img/bg.png");
     width: 465px;
     margin-left: -232px;
 }
+*/

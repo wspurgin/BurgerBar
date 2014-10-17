@@ -36,26 +36,26 @@
                    placeholder="{{input.placeholder}}" ng-model="user.password">
 
             <div class="error_message">Please enter a correct info #</div>
-        <span class="pic password {{input.iconClass}}" ng-click="togglePasswordVisible()">
+        <!-- <span class="pic password {{input.iconClass}}" ng-click="togglePasswordVisible()">
               <div class="hide_text_password">
                   {{input.tooltipText}}
               </div>
-        </span>
+        </span> -->
         </div>
         <div class="input-wrapper">
             <input required id="confirm_password" name="confirm_password" type="{{input.type}}"
                    placeholder="{{input.placeholderConfirmPass}}" ng-model="user.confirmPassword">
 
             <div class="error_message">Please enter a correct info #</div>
-        <span class="pic password {{input.iconClassConfirmPass}}" ng-click="togglePasswordConfirmVisible()">
+        <!-- <span class="pic password {{input.iconClassConfirmPass}}" ng-click="togglePasswordConfirmVisible()">
               <div class="hide_text_password">
                   {{input.tooltipTextConfirmPass}}
               </div>
-        </span>
+        </span> -->
         </div>
 
         <div class="input-wrapper">
-            <input required id="credit_number" type="text" name="credit_number" placeholder="Credit Card Number" maxlength="16" 
+            <input required id="credit_number" type="text" name="credit_number" placeholder="Credit Card Number"
                    ng-model="user.creditCardNumber">
 
             <div class="error_message">Please enter a correct info #</div>
@@ -63,8 +63,13 @@
         </div>
 
         <div class="input-wrapper">
-            <input required id="credit_provider" type="text" name="credit_provider" placeholder="Credit Card Provider"
+            <select required id="credit_provider" type="text" name="credit_provider"
                    ng-model="user.creditCardProvider">
+                <option value="" class="placeholder" disabled selected>Credit Card Provider</option>
+                <option value="visa">Visa</option>
+                <option value="master_card">Master Card</option>
+                <option value="american_express">American Express</option>
+            </select>
 
             <div class="error_message">Please enter a correct info #</div>
             <span class="pic cardProvider"></span>
