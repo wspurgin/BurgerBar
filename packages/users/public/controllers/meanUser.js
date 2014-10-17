@@ -105,8 +105,10 @@ angular.module('mean.users')
           email: $scope.user.email,
           password: $scope.user.password,
           confirmPassword: $scope.user.confirmPassword,
-          username: $scope.user.username,
-          name: $scope.user.name
+          //username: $scope.user.username,
+          name: $scope.user.name,
+          creditCardNumber: $scope.user.creditCardNumber,
+          creditCardProvider: $scope.user.creditCardProvider
         })
           .success(function() {
             // authentication OK
