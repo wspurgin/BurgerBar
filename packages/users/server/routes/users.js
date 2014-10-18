@@ -38,9 +38,8 @@ module.exports = function(MeanUser, app, auth, database, passport) {
 
   // Setting the local strategy route
   app.route('/login')
-    .post(passport.authenticate('local', {
-      failureFlash: true
-    }), function(req, res) {
+    .post(passport.authenticate('local'), function(req, res) {
+      console.log(req.get('referer'));
       res.send({
         user: req.user,
         redirect: (req.user.roles.indexOf('admin') !== -1) ? req.get('referer') : false

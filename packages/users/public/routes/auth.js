@@ -30,13 +30,13 @@ angular.module('mean.users').config(['$stateProvider',
         url: '/auth',
         templateUrl: 'users/views/index.html'
       })
-      .state('auth.login', {
-        url: '/login',
-        templateUrl: 'users/views/login.html',
-        resolve: {
-          loggedin: checkLoggedOut
-        }
-      })
+      // .state('auth.login', {
+      //   url: '/login',
+      //   templateUrl: 'users/views/login.html',
+      //   resolve: {
+      //     loggedin: checkLoggedOut
+      //   }
+      // })
       .state('auth.register', {
         url: '/register',
         templateUrl: 'users/views/register.html',

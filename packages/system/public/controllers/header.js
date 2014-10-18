@@ -70,13 +70,11 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
           if (response.redirect) {
             if (window.location.href === response.redirect) {
               //This is so an admin user will get full admin page
-              console.log('relocating');
               window.location.reload();
             } else {
               window.location = response.redirect;
             }
           } else {
-            console.log('relocating');
             window.location.reload();
           }
         })

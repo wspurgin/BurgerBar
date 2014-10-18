@@ -3,6 +3,7 @@
     <
   </span>
   <div data-ng-hide="global.authenticated">
+    <div class="alert alert-danger animated fadeIn" ng-show="loginerror">{{loginerror}}</div>
     <div class="loginMenu" ng-controller="LoginController"> 
       <form id="loginForm" ng-submit="login()">
           <div class="form_group">
