@@ -250,10 +250,10 @@ Menu Page Css Here
 }
 
 #current_order {
-	width: 600PX;
-margin-left: auto;
+	width: 100%;
+margin-left: 20px;
 margin-right: auto;
-margin-top: 40px;
+margin-top: 200px;
 }
 
 td.first {
@@ -277,10 +277,6 @@ hr {
 	display: block; height: 1px;
     border: 0; border-top: 2px solid #221C1C;
     margin: 1em 0; padding: 0;
-}
-
-.table_menu {
-	margin-top: 40px;
 }
 
 legend {
