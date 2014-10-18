@@ -26,7 +26,8 @@
 			<input type="radio" name="cheese" ng-repeat-end="cheese in menu.cheeses" value="{{cheese.name}}" ng-model="burger.cheese"/>
 			<h3>Toppings</h3>
 			<label for="topping{{topping.name}}" ng-repeat-start="topping in menu.topping">{{topping.name}}</label>
-			<input type="checkbox" id="topping{{topping.name}}" name="topping" ng-repeat-end="topping in menu.topping" value="{{topping.name}}" />
+			<!-- <input type="checkbox" id="topping{{topping.name}}" name="topping" ng-repeat-end="topping in menu.topping" value="{{topping.name}}" /> -->
+			<input type="checkbox" name="selectedToppings[]" value="{{topping.name}}" ng-repeat-end="topping in menu.topping" ng-checked="selectionToppings.indexOf({{topping.name}}) > -1" ng-click="toggleSelectionToppings({{topping.name}})" />
 			<h3>Sauces</h3>
 			<label for="sauces{{sauce.name}}" ng-repeat-start="sauce in menu.sauces">{{sauce.name}}</label>
 			<input type="checkbox" id="sauces{{sauce.name}}" name="sauce" ng-repeat-end="sauce in menu.sauces" value="{{sauce.name}}" />

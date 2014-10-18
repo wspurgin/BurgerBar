@@ -13,7 +13,8 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       sides: []
     };
     $scope.burger = {};
-
+    $scope.selectionToppings = [];
+    $scope.selectionSauces = [];
     $http.get('/menu')
         .success(function(response) {
           $scope.menu = response;
@@ -72,14 +73,8 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     };
     
     $scope.addBurgerToOrder = function() {
-    	$scope.burger.toppings.push($scope.selectionToppings);
-    	alert($scope.burger.meat);
-        alert($scope.burger.bun);
-        alert($scope.burger.sauces);
-        alert($scope.burger.toppings);
-        alert($scope.burger.cheese);
-        alert($scope.burger.price);
-        alert($scope.burger.side);
+    	//$scope.burger.toppings.push($scope.selectionToppings);
+    	alert(JSON.stringify($scope.selectionToppings));
 
 
       var burger = new Burger(
@@ -97,19 +92,20 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 
 
   // toggle selection for a given fruit by name
-  // $scope.toggleSelection = function toggleSelectionToppings(topping) {
-  //   var idx = $scope.selectionToppings.indexOf(topping);
+  $scope.toggleSelectionToppings = function(topping) {
+    alert('test');
+    var idx = $scope.selectionToppings.indexOf(topping);
 
-  //   // is currently selected
-  //   if (idx > -1) {
-  //     $scope.selectionToppings.splice(idx, 1);
-  //   }
+    // is currently selected
+    if (idx > -1) {
+      $scope.selectionToppings.splice(idx, 1);
+    }
 
-  //   // is newly selected
-  //   else {
-  //     $scope.selectionToppings.push(topping);
-  //   }
-  // };
+    // is newly selected
+    else {
+      $scope.selectionToppings.push(topping);
+    }
+  };
 
     // $scope.addSideToOrder = function() {
     //   var side = {
