@@ -58,17 +58,17 @@ body.login, body.register,  body.forgot-password {
 
 .main-form {
     width: 748px;
-    height: 435px;
+    height: 290px;
     margin-left: -374px;
 }
 
-.main-form.register-form {
+/* .main-form.register-form {
     height: 622px;
-} 
+}  */
 
 .login-form__left {
     width: 440px;
-    height: 47%;
+    height: 100%;
     position: relative;
     padding-left: 30px;
     border: solid;
@@ -112,15 +112,12 @@ body.login, body.register,  body.forgot-password {
     background: inherit;
 } 
 
-.main-form .input-wrapper select .placeholder {
-    display: none;
+.main-form .input-wrapper select {
     font-family: 'Indie Flower', cursive;
-    color: #a5a8a9;
 }
 
-.main-form .input-wrapper select[default] {
-    font-family: 'Indie Flower', cursive;
-    color: #a5a8a9;
+.main-form .input-wrapper select {
+
 }
 
 

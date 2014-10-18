@@ -49,14 +49,12 @@ var UserSchema = new Schema({
     'Please enter a valid email'],
     validate: [validateUniqueEmail, 'E-mail address is already in-use']
   },
-  username: {
-    type: String,
-    unique: true,
-    required: true
-  },
   creditCardNumber: {
-      type: String,
-      required: true
+    type: String,
+    required: true,
+    match: [
+    /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13})$/,
+    'Please enter a valid Credit Card Number']
   },
   creditCardProvider: {
       type: String,
