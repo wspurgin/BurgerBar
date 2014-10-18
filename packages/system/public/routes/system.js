@@ -15,6 +15,10 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
       .state('order', {
         url: '/order',
         templateUrl: 'system/views/order.html'
+      })
+      .state('payment', {
+        url: '/payment',
+        templateUrl: 'system/views/payment.html'
       });
   }
 ]).config(['$locationProvider',
