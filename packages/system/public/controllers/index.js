@@ -63,7 +63,6 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     };
     
     $scope.addBurgerToOrder = function() {
-      console.log($scope.burger);
       var burger = new Burger(
           $scope.burger.meat,
           $scope.burger.bun,
@@ -76,22 +75,21 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       $scope.order.burgers.push(burger);
     };
 
+    // toggle selection for a given fruit by name
+    $scope.toggleSelectionToppings = function(topping) {
+      alert('test');
+      var idx = $scope.selectionToppings.indexOf(topping);
 
+      // is currently selected
+      if (idx > -1) {
+        $scope.selectionToppings.splice(idx, 1);
+      }
 
-  // toggle selection for a given fruit by name
-  $scope.toggleSelection = function toggleSelectionToppings(topping) {
-    var idx = $scope.selectionToppings.indexOf(topping);
-
-    // is currently selected
-    if (idx > -1) {
-      $scope.selectionToppings.splice(idx, 1);
-    }
-
-    // is newly selected
-    else {
-      $scope.selectionToppings.push(topping);
-    }
-  };
+      // is newly selected
+      else {
+        $scope.selectionToppings.push(topping);
+      }
+    };
 
     $scope.addSideToOrder = function() {
       var side = {

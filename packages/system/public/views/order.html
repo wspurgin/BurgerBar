@@ -34,7 +34,7 @@
 				<h3>Toppings</h3>
 				<fieldset>
 					<label for="{{topping.name}}" ng-repeat-start="topping in menu.topping">{{topping.name}}</label>
-					<input type="checkbox" id="topping" name="{{topping.name}}" ng-model="burger.topping" ng-repeat-end="topping in menu.topping" value="{{topping}}" />
+					<input type="checkbox" name="selectedToppings[]" value="{{topping.name}}" ng-repeat-end="topping in menu.topping" ng-checked="selectionToppings.indexOf({{topping.name}}) > -1" ng-click="toggleSelectionToppings({{topping}})" />
 				</fieldset>
 				<h3>Sauces</h3>
 				<fieldset>
