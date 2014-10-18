@@ -1,7 +1,33 @@
 <section data-ng-controller="PaymentController">
     <div id="paymentContainer">
         <div id="payment">
-			
+			<fieldset id="order_placed">
+				<legend>Pay for your Order</legend>
+				<table class="table_menu">
+					<tr>
+						<td> Cardholder's Name: </td>   
+						<td> <input type="text" name="cardholder_name"></td>  
+					</tr>
+						<tr>
+						<td> Card Number</td>   
+						<td> <input type="text" name="card_number"> </td>  
+					</tr>
+				</table>
+				<fieldset>
+					<legend>Your Order</legend>
+					<table class="table_menu">
+						<th> Summary</th>  
+						<th class="second" > Quantity </th> 
+						<th> Price </th>
+						<tr>
+							<td class="first"> Turkey on White with cheddar & Tomotoes</td>
+							<td class="second"> 2</td>
+							<td> $5.70</td>
+						</tr>
+					</table>
+				</fieldset>
+				<div style="margin-top:20px; width:110px;" id="button_standard"><a href="order_placed.html">Place Order</a></div>
+			</fieldset>
 		</div>
-    </div>
+	</div>
 </section>
