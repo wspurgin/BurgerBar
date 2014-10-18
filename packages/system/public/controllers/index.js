@@ -5,11 +5,13 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     $scope.global = Global;
   }
 ])
-.controller('OrderController', ['$scope', '$rootScope', '$http', '$location', '$q', 'Global',
-  function($scope, $rootScope, $http, $location, $q, Global) {
+.controller('OrderController', ['$scope', '$rootScope', '$http', '$location', 'Global',
+  function($scope, $rootScope, $http, $location, Global) {
     $scope.global = Global;
+    $scope.user = {}
     $scope.burger = {};
     $scope.side = {};
+    var rowPreId = 'burger-id-';
     $scope.order = {
       burgers: []
     };
@@ -19,7 +21,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       this.bun = bun;
       this.sauces = sauces;
       this.toppings = toppings;
-      this.cheeses = cheeses;
+      this.cheese = cheeses;
       this.side = side;
     }
 
@@ -33,19 +35,23 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         });
     }
 
-
-    function getLastOrder() {
-      $http.get('/users/me/last-order')
+    function getUserInfo() {
+      $http.get('/users/me')
         .success(function(response) {
-          $scope.lastOrder = response;
-        })
-        .error(function() {
-          console.log('Could not get Users last order');
+          if (response) {
+            $scope.user = {
+              name: response.name,
+              creditCardNumber: response.creditCardNumber,
+              lastOrder: response.lastOrder
+            };
+            $scope.user[response.creditCardProvider] = true;
+          }
         });
     }
 
+
     getMenu();
-    getLastOrder();
+    getUserInfo();
 
     $scope.placeOrder = function() {
       console.log('Placeing Order');
@@ -60,47 +66,76 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         alert('Could not place order. Check network connection and try again');
       });
     };
-    
-    $scope.addBurgerToOrder = function() {
 
-     var burger = new Burger(
-          $scope.burger.meat,
-          $scope.burger.bun,
-          $scope.burger.sauce,
-          $scope.burger.topping,
-          $scope.burger.cheese,
-          $scope.burger.side
+    $scope.addBurgerToOrder = function() {
+      var burger = new Burger(
+          $scope.burger.meat ? JSON.parse($scope.burger.meat) : { name: 'No Meat', price: 0 },
+          $scope.burger.bun ? JSON.parse($scope.burger.bun) : { name: 'No Bun', price: 0 },
+          $scope.burger.sauce ? JSON.parse($scope.burger.sauce) : { name: 'No Sauce', price: 0 },
+          $scope.burger.topping ? JSON.parse($scope.burger.topping) : { name: 'No Topping', price: 0 },
+          $scope.burger.cheese ? JSON.parse($scope.burger.cheese) : { name: 'No Cheese', price: 0 },
+          $scope.burger.side ? JSON.parse($scope.burger.side) : { name: 'No Side', price: 0 }
         );
       $scope.order.burgers.push(burger);
-      
-      var row = document.createElement("tr");
-      var summaryData = document.createElement("td");
-      var quantityData = document.createElement("td");
-      var priceData = document.createElement("td");
-      
-      var meat = JSON.parse($scope.burger.meat);
-      var bun = JSON.parse($scope.burger.bun);
-      var sauce = JSON.parse($scope.burger.sauce);
-      var topping = JSON.parse($scope.burger.topping);
-      var cheese = JSON.parse($scope.burger.cheese);
-      var side = JSON.parse($scope.burger.side);
+      var burgerIndex = $scope.order.burgers.length - 1;
+      var row = $(document.createElement('tr')),
+        summaryData = document.createElement('td'),
+        quantityData = document.createElement('td'),
+        priceData = document.createElement('td');
+        /*meat = $scope.burger.meat ? JSON.parse($scope.burger.meat) : { name: 'No Meat', price: 0 },
+        bun = $scope.burger.bun ? JSON.parse($scope.burger.bun) : { name: 'No Bun', price: 0 },
+        sauce = $scope.burger.sauce ? JSON.parse($scope.burger.sauce) : { name: 'No Sauce', price: 0 },
+        topping = $scope.burger.topping ? JSON.parse($scope.burger.topping) : { name: 'No Topping', price: 0 },
+        cheese = $scope.burger.cheese ? JSON.parse($scope.burger.cheese) : { name: 'No Cheese', price: 0 },
+        side = $scope.burger.side ? JSON.parse($scope.burger.side) : { name: 'No Side', price: 0 };*/
 
-      summaryData.innerHTML = meat.name + " on " + bun.name + " with " + sauce.name + ", " 
-      + topping.name + ", " + cheese.name + " and " + side.name;
-      row.appendChild(summaryData);
+      summaryData.innerHTML = burger.meat.name + ' on ' + burger.bun.name + ' with ' + burger.sauces.name + ', ' +
+        burger.toppings.name + ', ' + burger.cheese.name + ' and ' + burger.side.name;
+      row.append(summaryData);
 
-      var quantityInput = document.createElement("input");
-      quantityInput.type = "number";
-      quantityInput.min = "1";
-      quantityInput.value = "1";
+      var quantityInput = document.createElement('input');
+      quantityInput.type = 'number';
+      quantityInput.min = '1';
+      quantityInput.value = '1';
       quantityData.appendChild(quantityInput);
+      row.append(quantityData);
 
-      row.appendChild(quantityData);
+      priceData.innerHTML = (burger.meat.price + burger.bun.price + burger.sauces.price + 
+        burger.toppings.price + burger.cheese.price + burger.side.price).toFixed(2);
+      priceData.innerHTML = '$' + priceData.innerHTML;
+      row.append(priceData);
 
-      priceData.innerHTML = meat.price + bun.price + sauce.price + topping.price + cheese.price + side.price;
-      priceData.innerHTML = "$" + priceData.innerHTML;
-      row.appendChild(priceData);
+      var removeButton = $(document.createElement('button'));
+      removeButton.attr({ type: 'button', 'data-burger-num': burgerIndex });
+      removeButton.html('X');
+      removeButton.click(function(event) {
+        console.log('removing burger');
+        var burgerIndex = Number($(this).attr('data-burger-num'));
+        $scope.order.burgers.splice(burgerIndex, 1);
+        $('#' + rowPreId + burgerIndex).remove();
+      });
+      row.append(removeButton);
+      $scope.burger = {};
+      row.attr('burgerRow');
+      row.attr({ id: rowPreId + burgerIndex });
+      $('#order_table').append(row);
+    };
 
-      document.getElementById("order_table").appendChild(row);
+    $scope.addSideToOrder = function() {
+      var side = {
+        name: $scope.side.name,
+        price: $scope.side.price
+      };
+      $scope.order.sides.push(side);
+    };
+}])
+.directive('burgerRow', ['$document', 
+  function($document){
+  // Runs during compile
+  return function(scope, element, attr) {
+        element.on('click', function(event) {
+          event.preventDefault();
+          element.remove();
+        });
     };
 }]);

@@ -9,9 +9,23 @@
 							<th>Summary</th>  
 							<th>Quantity</th> 
 							<th>Price</th>
+							<th>Remove</th>
 						</tr>
 					</table>
-					<input type="submit" value="Order"/>
+					<fieldset>
+						<label for="credit-number">Credit Card Number</label>
+						<input type="text" name="credit-number" value="{{user.creditCardNumber}}">
+					</fieldset>
+					<fieldset>
+						<label for="credit-provider">Credit Card Provider</label>
+						<select type="text" name="credit-provider">
+							<option disabled selected>Credit Card Provider</option>
+							<option ng-selected="user.visa" value="visa">Visa</option>
+							<option ng-selected="user.master_card" value="master_card">Master Card</option>
+							<option ng-selected="user.american_express" value="american_express">American Express</option>
+						</select>
+					</fieldset>
+					<button type="submit">Place Order</button>
 				</form>
 			</fieldset>	
 		</div>
