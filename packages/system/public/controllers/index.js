@@ -8,17 +8,12 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 .controller('OrderController', ['$scope', '$rootScope', '$http', '$location', '$q', 'Global',
   function($scope, $rootScope, $http, $location, $q, Global) {
     $scope.global = Global;
+    $scope.burger = {};
+    $scope.side = {};
     $scope.order = {
       burgers: [],
       sides: []
     };
-    $http.get('/menu')
-        .success(function(response) {
-          $scope.menu = response;
-        })
-        .error(function() {
-          alert('Couldn\'t get menu data. Please check your network connection.');
-        });
 
     function Burger(meat, bun, sauces, toppings, cheeses, price) {
       this.meat = meat;
@@ -67,6 +62,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     };
     
     $scope.addBurgerToOrder = function() {
+      console.log($scope.burger);
       var burger = new Burger(
           $scope.burger.meat,
           $scope.burger.bun,
