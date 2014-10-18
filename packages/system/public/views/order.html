@@ -3,13 +3,13 @@
         <div id="left_column">
 			<fieldset id="current_order">
 				<legend>Your Current Order</legend>
-				<form id="summaryForm">
+				<form id="summaryForm" ng-submit="placeOrder()">
 					<table class="table_menu">
 						<th> Summary</th>  
 						<th> Quantity</th> 
 						<th>Price </th>
 					</table>
-					<input type="button" value="Order"/>
+					<input type="submit" value="Order"/>
 				</form>
 			</fieldset>	
 		</div>
