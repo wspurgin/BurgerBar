@@ -127,7 +127,7 @@ exports.newLastOrder = function(req, res) {
     var currUser = new User(req.user);
     currUser.lastOrder = req.body.order;
   }
-  return res.status(200);
+  return res.status(201).send(req.body.order);
 };
 
 /**
