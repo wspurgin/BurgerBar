@@ -72,6 +72,7 @@ var UserSchema = new Schema({
     type: String,
     default: 'local'
   },
+  lastOrder: {},
   salt: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,

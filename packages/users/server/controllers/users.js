@@ -124,10 +124,14 @@ exports.lastOrder = function(req, res) {
 
 exports.newLastOrder = function(req, res) {
   if (req.user) {
-    var currUser = new User(req.user);
-    currUser.lastOrder = req.body.order;
+    req.user.lastOrder = req.body.order;
+    User.findByIdAndUpdate(req.user._id, { lastOrder: req.body.order }, function(err) {
+      if (err) console.log(err);
+      return res.status(201).send(req.body.order);    
+    });
+  } else {
+    return res.status(201).send(req.body.order);
   }
-  return res.status(201).send(req.body.order);
 };
 
 /**

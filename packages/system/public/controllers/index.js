@@ -55,7 +55,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         $location.url('/');
       })
       .error(function() {
-        alert('Could not place order');
+        alert('Could not place order. Check network connection and try again');
       });
     };
     
