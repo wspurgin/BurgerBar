@@ -13,7 +13,7 @@
 				</form>
 			</fieldset>	
 		</div>
-	
+		<form id="add_burger_form" ng-submit="addBurgerToOrder()" >
 		<div id="right_column">
 			<form id="bugerForm" ng-submit="addBurgerToOrder()">
 				<h3>Meats</h3>
@@ -49,5 +49,7 @@
 				<button type="submit">Add Burger to Order</button>
 			</form>
 		</div>
+			<input type="submit" id="add_burger_to_order" value="Add to Order" />
+		</form>
     </div>
 </section>

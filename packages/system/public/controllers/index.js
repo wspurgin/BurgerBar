@@ -34,6 +34,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         });
     }
 
+
     function getLastOrder() {
       $http.get('/users/me/last-order')
         .success(function(response) {
@@ -68,11 +69,29 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
           $scope.burger.bun,
           $scope.burger.sauces,
           $scope.burger.toppings,
-          $scope.burger.cheeses,
-          $scope.burger.price
+          $scope.burger.cheese,
+          $scope.burger.price,
+          $scope.burger.side
         );
       $scope.order.burgers.push(burger);
     };
+
+
+
+  // toggle selection for a given fruit by name
+  $scope.toggleSelection = function toggleSelectionToppings(topping) {
+    var idx = $scope.selectionToppings.indexOf(topping);
+
+    // is currently selected
+    if (idx > -1) {
+      $scope.selectionToppings.splice(idx, 1);
+    }
+
+    // is newly selected
+    else {
+      $scope.selectionToppings.push(topping);
+    }
+  };
 
     $scope.addSideToOrder = function() {
       var side = {
