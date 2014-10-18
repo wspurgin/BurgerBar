@@ -12,6 +12,13 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       burgers: [],
       sides: []
     };
+    $http.get('/menu')
+        .success(function(response) {
+          $scope.menu = response;
+        })
+        .error(function() {
+          alert('Couldn\'t get menu data. Please check your network connection.');
+        });
 
     function Burger(meat, bun, sauces, toppings, cheeses, price) {
       this.meat = meat;

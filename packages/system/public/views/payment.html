@@ -3,10 +3,20 @@
         <div id="payment">
 			<fieldset id="order_placed">
 				<legend>Pay for your Order</legend>
-				<table class="table_menu">
-					<tr>
-						<td> Cardholder's Name: </td>   
-						<td> <input type="text" name="cardholder_name"></td>  
+				<form id="payment_form">
+					<label for="first_name">First Name</label>
+					<input required type="text" id="first_name" />  
+					<label for="last_name">Last Name</label>
+					<input required type="text" id="last_name" />  
+					<label for="card_number">Credit Card Number</label>
+					<input required type="text" id="card_number" />  
+					<label for="card_provider">Credit Card Provider</label>
+				 	<select required id="card_provider" type="text" >
+                		<option value="" disabled selected></option>
+                		<option value="visa">Visa</option>
+                		<option value="master_card">Master Card</option>
+                		<option value="american_express">American Express</option>
+           			</select>
 					</tr>
 						<tr>
 						<td> Card Number</td>   
