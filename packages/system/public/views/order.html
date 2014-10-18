@@ -13,26 +13,28 @@
 				</form>
 			</fieldset>	
 		</div>
-	
+		<form id="add_burger_form" ng-submit="addBurgerToOrder()" >
 		<div id="right_column">
 			<h3>Meats</h3>
 			<label for="meats" ng-repeat-start="meat in menu.meats">{{meat.name}}</label>
-			<input type="radio" id="meats" name="meat" ng-repeat-end="meat in menu.meats" value="{{meat.name}}" />
+			<input type="radio" id="meats" name="meat" ng-repeat-end="meat in menu.meats" value="{{meat.name}}" ng-model="burger.meat"/>
 			<h3>Buns</h3>
 			<label for="buns" ng-repeat-start="bun in menu.buns">{{bun.name}}</label>
-			<input type="radio" id="buns" name="bun" ng-repeat-end="bun in menu.buns" value="{{bun.name}}" />
+			<input type="radio" name="bun" ng-repeat-end="bun in menu.buns" value="{{bun.name}}" ng-model="burger.bun"/>
 			<h3>Cheeses</h3>
 			<label for="cheeses" ng-repeat-start="cheese in menu.cheeses">{{cheese.name}}</label>
-			<input type="radio" id="cheeses" name="cheese" ng-repeat-end="cheese in menu.cheeses" value="{{cheese.name}}" />
+			<input type="radio" name="cheese" ng-repeat-end="cheese in menu.cheeses" value="{{cheese.name}}" ng-model="burger.cheese"/>
 			<h3>Toppings</h3>
-			<label for="topping" ng-repeat-start="topping in menu.topping">{{topping.name}}</label>
-			<input type="checkbox" id="topping" name="topping" ng-repeat-end="topping in menu.topping" value="{{topping.name}}" />
+			<label for="topping{{topping.name}}" ng-repeat-start="topping in menu.topping">{{topping.name}}</label>
+			<input type="checkbox" id="topping{{topping.name}}" name="topping" ng-repeat-end="topping in menu.topping" value="{{topping.name}}" />
 			<h3>Sauces</h3>
-			<label for="sauces" ng-repeat-start="sauce in menu.sauces">{{sauce.name}}</label>
-			<input type="checkbox" id="sauces" name="sauce" ng-repeat-end="sauce in menu.sauces" value="{{sauce.name}}" />
+			<label for="sauces{{sauce.name}}" ng-repeat-start="sauce in menu.sauces">{{sauce.name}}</label>
+			<input type="checkbox" id="sauces{{sauce.name}}" name="sauce" ng-repeat-end="sauce in menu.sauces" value="{{sauce.name}}" />
 			<h3>Sides</h3>
 			<label for="sides" ng-repeat-start="side in menu.sides">{{side.name}}</label>
-			<input type="radio" id="sides" name="side" ng-repeat-end="side in menu.sides" value="{{side.name}}" />
+			<input type="radio" id="sides" name="side" ng-repeat-end="side in menu.sides" value="{{side.name}}" ng-model="burger.side" />
 		</div>
+			<input type="submit" id="add_burger_to_order" value="Add to Order" />
+		</form>
     </div>
 </section>

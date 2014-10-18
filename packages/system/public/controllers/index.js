@@ -12,6 +12,8 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       burgers: [],
       sides: []
     };
+    $scope.burger = {};
+
     $http.get('/menu')
         .success(function(response) {
           $scope.menu = response;
@@ -20,13 +22,15 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
           alert('Couldn\'t get menu data. Please check your network connection.');
         });
 
-    function Burger(meat, bun, sauces, toppings, cheeses, price) {
+
+    function Burger(meat, bun, sauces, toppings, cheeses, price, side) {
       this.meat = meat;
       this.bun = bun;
       this.sauces = sauces;
       this.toppings = toppings;
       this.cheeses = cheeses;
       this.price = price;
+      this.side = side;
     }
 
     function getMenu() {
@@ -38,6 +42,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
           alert('Couldn\'t get menu data. Please check your network connection.');
         });
     }
+
 
     function getLastOrder() {
       $http.get('/users/me/last-order')
@@ -67,23 +72,51 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     };
     
     $scope.addBurgerToOrder = function() {
+    	$scope.burger.toppings.push($scope.selectionToppings);
+    	alert($scope.burger.meat);
+        alert($scope.burger.bun);
+        alert($scope.burger.sauces);
+        alert($scope.burger.toppings);
+        alert($scope.burger.cheese);
+        alert($scope.burger.price);
+        alert($scope.burger.side);
+
+
       var burger = new Burger(
           $scope.burger.meat,
           $scope.burger.bun,
           $scope.burger.sauces,
           $scope.burger.toppings,
-          $scope.burger.cheeses,
-          $scope.burger.price
+          $scope.burger.cheese,
+          $scope.burger.price,
+          $scope.burger.side
         );
       $scope.order.burgers.push(burger);
     };
 
-    $scope.addSideToOrder = function() {
-      var side = {
-        name: $scope.side.name,
-        price: $scope.side.price
-      };
-      $scope.order.sides.push(side);
-    };
+
+
+  // toggle selection for a given fruit by name
+  // $scope.toggleSelection = function toggleSelectionToppings(topping) {
+  //   var idx = $scope.selectionToppings.indexOf(topping);
+
+  //   // is currently selected
+  //   if (idx > -1) {
+  //     $scope.selectionToppings.splice(idx, 1);
+  //   }
+
+  //   // is newly selected
+  //   else {
+  //     $scope.selectionToppings.push(topping);
+  //   }
+  // };
+
+    // $scope.addSideToOrder = function() {
+    //   var side = {
+    //     name: $scope.side.name,
+    //     price: $scope.side.price
+    //   };
+    //   $scope.order.sides.push(side);
+    // };
 }
 ]);
