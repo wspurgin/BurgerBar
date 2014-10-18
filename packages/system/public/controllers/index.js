@@ -11,17 +11,16 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     $scope.burger = {};
     $scope.side = {};
     $scope.order = {
-      burgers: [],
-      sides: []
+      burgers: []
     };
 
-    function Burger(meat, bun, sauces, toppings, cheeses, price) {
+    function Burger(meat, bun, sauces, toppings, cheeses, side) {
       this.meat = meat;
       this.bun = bun;
       this.sauces = sauces;
       this.toppings = toppings;
       this.cheeses = cheeses;
-      this.price = price;
+      this.side = side;
     }
 
     function getMenu() {
@@ -63,40 +62,45 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     };
     
     $scope.addBurgerToOrder = function() {
-      var burger = new Burger(
+
+     var burger = new Burger(
           $scope.burger.meat,
           $scope.burger.bun,
-          $scope.burger.sauces,
-          $scope.burger.toppings,
+          $scope.burger.sauce,
+          $scope.burger.topping,
           $scope.burger.cheese,
-          $scope.burger.price,
           $scope.burger.side
         );
       $scope.order.burgers.push(burger);
+      
+      var row = document.createElement("tr");
+      var summaryData = document.createElement("td");
+      var quantityData = document.createElement("td");
+      var priceData = document.createElement("td");
+      
+      var meat = JSON.parse($scope.burger.meat);
+      var bun = JSON.parse($scope.burger.bun);
+      var sauce = JSON.parse($scope.burger.sauce);
+      var topping = JSON.parse($scope.burger.topping);
+      var cheese = JSON.parse($scope.burger.cheese);
+      var side = JSON.parse($scope.burger.side);
+
+      summaryData.innerHTML = meat.name + " on " + bun.name + " with " + sauce.name + ", " 
+      + topping.name + ", " + cheese.name + " and " + side.name;
+      row.appendChild(summaryData);
+
+      var quantityInput = document.createElement("input");
+      quantityInput.type = "number";
+      quantityInput.min = "1";
+      quantityInput.value = "1";
+      quantityData.appendChild(quantityInput);
+
+      row.appendChild(quantityData);
+
+      priceData.innerHTML = meat.price + bun.price + sauce.price + topping.price + cheese.price + side.price;
+      priceData.innerHTML = "$" + priceData.innerHTML;
+      row.appendChild(priceData);
+
+      document.getElementById("order_table").appendChild(row);
     };
-
-    // toggle selection for a given fruit by name
-    $scope.toggleSelectionToppings = function(topping) {
-      alert('test');
-      var idx = $scope.selectionToppings.indexOf(topping);
-
-      // is currently selected
-      if (idx > -1) {
-        $scope.selectionToppings.splice(idx, 1);
-      }
-
-      // is newly selected
-      else {
-        $scope.selectionToppings.push(topping);
-      }
-    };
-
-    $scope.addSideToOrder = function() {
-      var side = {
-        name: $scope.side.name,
-        price: $scope.side.price
-      };
-      $scope.order.sides.push(side);
-    };
-}
-]);
+}]);
