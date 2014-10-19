@@ -9,8 +9,18 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
   function($scope, $rootScope, $http, $location, Global) {
     $scope.global = Global;
     $scope.user = {};
+    $scope.user.creditCardNumber = null;
+    $scope.creditCardProvider = null;
+    $scope.mismatchError = false;
+    $scope.providerErrorMessage = null;
+    $scope.pattern = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13})$/;
+    $scope.cards = [
+      { name: 'Visa', value: 'visa' },
+      { name: 'Master Card', value: 'master_card' },
+      { name: 'American Express', value: 'american_express' }
+    ];
     $scope.sides = [];
-    var rowPreId = 'burger-id-';
+    
     $scope.order = {
       burgers: []
     };
@@ -41,6 +51,15 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         });
     }
 
+    function displayLastOrder() {
+      console.log($scope.user);
+      if ($scope.user) {
+          $scope.user.lastOrder.burgers.forEach(function(burger) {
+          displayBurger(burger, $('#last_order_table'), false);
+        });
+      }
+    }
+
     function getUserInfo() {
       $http.get('/users/me')
         .success(function(response) {
@@ -51,38 +70,138 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
               lastOrder: response.lastOrder
             };
             $scope.user[response.creditCardProvider] = true;
+            if (response.lastOrder) displayLastOrder();
           }
         });
     }
 
+    /**
+     * @param burger: an instance of burger class
+     * @param orderTable: the JQuery object of the DOM element to append the display row
+     * @param allowModify: a Boolean to specify if the remove button and quantity input should be displayed.
+     */
+    function displayBurger(burger, orderTable, allowModify) {
+      var row = $(document.createElement('tr')),
+        summaryData = document.createElement('td'),
+        quantityData = document.createElement('td'),
+        priceData = document.createElement('td'),
+        rowPreId = 'burger-id-';
 
+      if (allowModify === true) row.attr({ id: rowPreId + $scope.currentBurgerIndex });
+      summaryData.innerHTML = burger.meat.name + ' on ' + 
+      burger.bun.name + ' with ' + 
+      burger.sauces.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
+      ', ' + burger.toppings.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
+      ', ' + burger.cheeses.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
+      ', ' + burger.side.name;
+      row.append(summaryData);
+
+      if (allowModify === true) {
+        var quantityInput = document.createElement('input');
+        quantityInput.type = 'number';
+        quantityInput.min = '1';
+        quantityInput.value = '1';
+        $(quantityInput).change(function(event) {
+          $scope.order.burgers[$scope.currentBurgerIndex].quantity = Number($(this).val());
+          $('#priceForBurger' + $scope.currentBurgerIndex).empty().html('$' + ($scope.order.burgers[$scope.currentBurgerIndex].price * Number($(this).val())).toFixed(2));
+          console.log($scope.order.burgers[$scope.currentBurgerIndex]);
+        });
+        quantityData.appendChild(quantityInput);
+        row.append(quantityData);
+      } else {
+        $(quantityData).html(burger.quantity);
+        row.append(quantityData);
+      }
+
+      if(allowModify === true) $(priceData).attr('id', 'priceForBurger' + $scope.currentBurgerIndex);
+      priceData.innerHTML = burger.price;
+      priceData.innerHTML = '$' + priceData.innerHTML;
+      row.append(priceData);
+
+      if(allowModify) {
+        var removeButton = $(document.createElement('button'));
+        removeButton.attr({ type: 'button', 'data-burger-num': $scope.currentBurgerIndex });
+        removeButton.html('X');
+        
+        // add event listner to remove order
+        removeButton.click(function(event) {
+          var burgerIndex = Number($(this).attr('data-burger-num'));
+          $scope.order.burgers.splice(burgerIndex, 1);
+          $('#' + rowPreId + burgerIndex).remove();
+        });
+        row.append(removeButton);
+      }
+
+      // append data to order table
+      orderTable.append(row);
+    }
+
+    // Bootstrap page and scope variables.
     getMenu();
     getUserInfo();
+    
 
-    // toggle selection for a given fruit by name
-    $scope.toggleSelection = function(collection, item) {
-      var idx = $scope.burger[collection].indexOf(item);
-      // is currently selected
-      if (idx > -1) {
-        $scope.burger[collection].splice(idx, 1);
-      } else {
-        $scope.burger[collection].push(item);
+    $scope.testForProvider = function() {
+      // test the different credit card types
+      console.log('testing input');
+      var visa = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
+        masterCard = /^(5[1-5][0-9]{14})$/,
+        americanExpress = /^(3[47][0-9]{13})$/;
+      $scope.isVisa = false;
+      $scope.isMasterCard = false;
+      $scope.isAmericanExpress = false;
+      switch(true) {
+        case visa.test($scope.user.creditCardNumber):
+          $scope.isVisa = true;
+          break;
+        case masterCard.test($scope.user.creditCardNumber):
+          $scope.isMasterCard = true;
+          break;
+        case americanExpress.test($scope.user.creditCardNumber):
+          $scope.isAmericanExpress = true;
+          break;
+        default:
       }
+      return $scope.isVisa || $scope.isMasterCard || $scope.isAmericanExpress;
     };
+
+    function _order(order) {
+      if (!$scope.testForProvider() || $scope.creditCardProvider === null) {
+        $scope.mismatchError = true;
+        $scope.providerErrorMessage = 'Please Select a Credit Card Provider';
+      } else if (($scope.creditCardProvider.value !== 'visa' && $scope.isVisa) ||
+                  ($scope.creditCardProvider.value !== 'master_card' && $scope.isMasterCard) ||
+                  ($scope.creditCardProvider.value !== 'american_express' && $scope.isAmericanExpress)) {
+        $scope.mismatchError = true;
+        $scope.providerErrorMessage = 'Credit Card Number is not a ' + $scope.creditCardProvider.name;
+      } else if (order.burgers.length <= 0) {
+        alert('You haven\'t ordered anything yet!');
+      } else {
+        $scope.mismatchError = false;
+        $http.post('/users/me/new-order', {
+          order: order
+        })
+        .success(function() {
+          alert('Thank you for your order!');
+          $location.url('/');
+        })
+        .error(function() {
+          alert('Could not place order. Check network connection and try again');
+        });
+      }
+    }
 
     $scope.placeOrder = function() {
-      console.log('Placeing Order');
-      $http.post('/users/me/new-order', {
-        order: $scope.order
-      })
-      .success(function() {
-        alert('Thank you for your order!');
-        $location.url('/');
-      })
-      .error(function() {
-        alert('Could not place order. Check network connection and try again');
-      });
+      event.preventDefault();
+      console.log($scope.creditCardProvider, $scope.testForProvider());
+      _order($scope.order);
     };
+
+    $scope.lastOrder = function() {
+      event.preventDefault();
+      console.log($scope.user.lastOrder);
+      _order($scope.user.lastOrder);
+    }
 
     $scope.addBurgerToOrder = function() {
       // init burger
@@ -130,57 +249,13 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       console.log(burger);
       $scope.order.burgers.push(burger);
       
-      // create new row in summary
-      var burgerIndex = $scope.order.burgers.length - 1;
-      var row = $(document.createElement('tr')),
-        summaryData = document.createElement('td'),
-        quantityData = document.createElement('td'),
-        priceData = document.createElement('td');
-
-      summaryData.innerHTML = burger.meat.name + ' on ' + 
-      burger.bun.name + ' with ' + 
-      burger.sauces.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
-      ', ' + burger.toppings.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
-      ', ' + burger.cheeses.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
-      ', ' + burger.side.name;
-      row.append(summaryData);
-
-      var quantityInput = document.createElement('input');
-      quantityInput.type = 'number';
-      quantityInput.min = '1';
-      quantityInput.value = '1';
-      $(quantityInput).change(function(event) {
-        $scope.order.burgers[burgerIndex].quantity = Number($(this).val());
-        $('#priceForBurger' + burgerIndex).empty().html('$' + ($scope.order.burgers[burgerIndex].price * Number($(this).val())).toFixed(2));
-        console.log($scope.order.burgers[burgerIndex])
-      }
-      )
-      quantityData.appendChild(quantityInput);
-      row.append(quantityData);
-
-      $(priceData).attr('id', 'priceForBurger' + burgerIndex);
-      priceData.innerHTML = burger.price
-      priceData.innerHTML = '$' + priceData.innerHTML;
-      row.append(priceData);
-
-      var removeButton = $(document.createElement('button'));
-      removeButton.attr({ type: 'button', 'data-burger-num': burgerIndex });
-      removeButton.html('X');
-      
-      // add event listner to remove order
-      removeButton.click(function(event) {
-        console.log('removing burger');
-        var burgerIndex = Number($(this).attr('data-burger-num'));
-        $scope.order.burgers.splice(burgerIndex, 1);
-        $('#' + rowPreId + burgerIndex).remove();
-      });
-      row.append(removeButton);
+      // set this for creating new row.
+      $scope.currentBurgerIndex = $scope.order.burgers.length - 1;
+      displayBurger(burger, $('#order_table'), true);
       
       // empty out the form model
       $scope.burger.empty();
-
-      // append data to order table
-      row.attr({ id: rowPreId + burgerIndex });
-      $('#order_table').append(row);
     };
+
+
 }]);

@@ -1,9 +1,38 @@
 <section data-ng-controller="OrderController">
     <div id="burgerContainer">
         <div id="left_column">
-			<fieldset id="current_order">
+    		<fieldset class="column-group">
+    			<form name="payment">
+	    			<fieldset>
+						<label for="creditNumber">Credit Card Number</label>
+						<input type="text" ng-model="user.creditCardNumber" ng-change="testForProvider()" ng-pattern="/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13})$/" name="creditNumber" required>
+					</fieldset>
+					<fieldset>
+						<label for="credit-provider">Credit Card Provider</label>
+						<select ng-model="creditCardProvider" ng-options="card.name for card in cards track by card.value">
+							<option value="">-- Select Credit Card Provider --</option>
+						</select>
+					</fieldset>
+					<div ng-show="payment.creditNumber.$error.pattern">Not valid Credit Card Number!</div>
+					<div ng-show="mismatchError">{{providerErrorMessage}}</div>
+				</form>
+			</fieldset>
+        	<fieldset class="column-group" ng-show="global.authenticated && user.lastOrder">
+        		<legend>Your Last Order</legend>
+        		<form name="lastOrderForm" ng-submit="lastOrder()">
+        			<table id="last_order_table" class="table_menu">
+						<tr>
+							<th>Summary</th>  
+							<th>Quantity</th> 
+							<th>Price</th>
+						</tr>
+					</table>
+					<button type="submit">Reorder</button>
+        		</form>
+        	</fieldset>
+			<fieldset class="column-group" id="current_order">
 				<legend>Your Current Order</legend>
-				<form id="summaryForm" ng-submit="placeOrder()">
+				<form id="summaryForm" name="summaryForm" ng-submit="placeOrder()">
 					<table id="order_table" class="table_menu">
 						<tr>
 							<th>Summary</th>  
@@ -12,19 +41,6 @@
 							<th>Remove</th>
 						</tr>
 					</table>
-					<fieldset>
-						<label for="credit-number">Credit Card Number</label>
-						<input type="text" name="credit-number" value="{{user.creditCardNumber}}" required>
-					</fieldset>
-					<fieldset>
-						<label for="credit-provider">Credit Card Provider</label>
-						<select type="text" name="credit-provider">
-							<option disabled selected>Credit Card Provider</option>
-							<option ng-selected="user.visa" value="visa">Visa</option>
-							<option ng-selected="user.master_card" value="master_card">Master Card</option>
-							<option ng-selected="user.american_express" value="american_express">American Express</option>
-						</select>
-					</fieldset>
 					<button type="submit">Place Order</button>
 				</form>
 			</fieldset>	
