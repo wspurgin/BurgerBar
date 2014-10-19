@@ -118,6 +118,15 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         burger.cheeses.push({ name: 'No Cheese', price: 0 });
       }
       burger.side = $scope.burger.side ? JSON.parse($scope.burger.side) : { name: 'No Side', price: 0 };
+      burger.price = (
+        burger.meat.price + 
+        burger.bun.price + 
+        burger.sauces.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
+        burger.toppings.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
+        burger.cheeses.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
+        burger.side.price
+        ).toFixed(2);
+      burger.quantity = 1;
       console.log(burger);
       $scope.order.burgers.push(burger);
       
@@ -140,17 +149,17 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       quantityInput.type = 'number';
       quantityInput.min = '1';
       quantityInput.value = '1';
+      $(quantityInput).change(function(event) {
+        $scope.order.burgers[burgerIndex].quantity = Number($(this).val());
+        $('#priceForBurger' + burgerIndex).empty().html('$' + ($scope.order.burgers[burgerIndex].price * Number($(this).val())).toFixed(2));
+        console.log($scope.order.burgers[burgerIndex])
+      }
+      )
       quantityData.appendChild(quantityInput);
       row.append(quantityData);
 
-      priceData.innerHTML = (
-        burger.meat.price + 
-        burger.bun.price + 
-        burger.sauces.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
-        burger.toppings.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
-        burger.cheeses.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
-        burger.side.price
-        ).toFixed(2);
+      $(priceData).attr('id', 'priceForBurger' + burgerIndex);
+      priceData.innerHTML = burger.price
       priceData.innerHTML = '$' + priceData.innerHTML;
       row.append(priceData);
 
@@ -173,13 +182,5 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       // append data to order table
       row.attr({ id: rowPreId + burgerIndex });
       $('#order_table').append(row);
-    };
-
-    $scope.addSideToOrder = function() {
-      var side = {
-        name: $scope.side.name,
-        price: $scope.side.price
-      };
-      $scope.order.sides.push(side);
     };
 }]);
