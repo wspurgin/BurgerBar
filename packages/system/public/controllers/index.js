@@ -8,22 +8,28 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
 .controller('OrderController', ['$scope', '$rootScope', '$http', '$location', 'Global',
   function($scope, $rootScope, $http, $location, Global) {
     $scope.global = Global;
-    $scope.user = {}
-    $scope.burger = {};
-    $scope.side = {};
+    $scope.user = {};
+    $scope.sides = [];
     var rowPreId = 'burger-id-';
     $scope.order = {
       burgers: []
     };
 
-    function Burger(meat, bun, sauces, toppings, cheeses, side) {
-      this.meat = meat;
-      this.bun = bun;
-      this.sauces = sauces;
-      this.toppings = toppings;
-      this.cheese = cheeses;
-      this.side = side;
+    function Burger() {
+      this.empty();
     }
+
+    Burger.prototype.empty = function() {
+        this.meat = null;
+        this.bun = null;
+        this.sauces = [];
+        this.toppings = [];
+        this.cheeses = [];
+        this.side = null;
+    };
+
+    // Declare scope burger
+    $scope.burger = new Burger();
 
     function getMenu() {
       $http.get('/menu')
@@ -53,6 +59,17 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     getMenu();
     getUserInfo();
 
+    // toggle selection for a given fruit by name
+    $scope.toggleSelection = function(collection, item) {
+      var idx = $scope.burger[collection].indexOf(item);
+      // is currently selected
+      if (idx > -1) {
+        $scope.burger[collection].splice(idx, 1);
+      } else {
+        $scope.burger[collection].push(item);
+      }
+    };
+
     $scope.placeOrder = function() {
       console.log('Placeing Order');
       $http.post('/users/me/new-order', {
@@ -68,29 +85,55 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
     };
 
     $scope.addBurgerToOrder = function() {
-      var burger = new Burger(
-          $scope.burger.meat ? JSON.parse($scope.burger.meat) : { name: 'No Meat', price: 0 },
-          $scope.burger.bun ? JSON.parse($scope.burger.bun) : { name: 'No Bun', price: 0 },
-          $scope.burger.sauce ? JSON.parse($scope.burger.sauce) : { name: 'No Sauce', price: 0 },
-          $scope.burger.topping ? JSON.parse($scope.burger.topping) : { name: 'No Topping', price: 0 },
-          $scope.burger.cheese ? JSON.parse($scope.burger.cheese) : { name: 'No Cheese', price: 0 },
-          $scope.burger.side ? JSON.parse($scope.burger.side) : { name: 'No Side', price: 0 }
-        );
+      // init burger
+      var burger = new Burger();
+      burger.meat = $scope.burger.meat ? JSON.parse($scope.burger.meat) : { name: 'No Meat', price: 0 };
+      burger.bun = $scope.burger.bun ? JSON.parse($scope.burger.bun) : { name: 'No Bun', price: 0 };
+      console.log($scope.burger);
+      if($scope.burger.sauces.length){
+        for(var i = 0; i < $scope.burger.sauces.length; i++) {
+          if ($scope.burger.sauces[i]){
+            burger.sauces.push($scope.menu.sauces[i]);
+          }
+        }
+      } else {
+        burger.sauces.push({ name: 'No Sauce', price: 0 });
+      }
+      if($scope.burger.toppings.length){
+        for(var i = 0; i < $scope.burger.toppings.length; i++) {
+          if ($scope.burger.toppings[i]) {
+            burger.toppings.push($scope.menu.topping[i]);
+          }
+        }
+      } else { 
+        burger.toppings.push({ name: 'No Topping', price: 0 });
+      }
+      if($scope.burger.cheeses.length){
+        for(var i = 0; i < $scope.burger.cheeses.length; i++) {
+          if ($scope.burger.cheeses[i]) {
+            burger.cheeses.push($scope.menu.cheeses[i]);
+          }
+        }
+      } else {
+        burger.cheeses.push({ name: 'No Cheese', price: 0 });
+      }
+      burger.side = $scope.burger.side ? JSON.parse($scope.burger.side) : { name: 'No Side', price: 0 };
+      console.log(burger);
       $scope.order.burgers.push(burger);
+      
+      // create new row in summary
       var burgerIndex = $scope.order.burgers.length - 1;
       var row = $(document.createElement('tr')),
         summaryData = document.createElement('td'),
         quantityData = document.createElement('td'),
         priceData = document.createElement('td');
-        /*meat = $scope.burger.meat ? JSON.parse($scope.burger.meat) : { name: 'No Meat', price: 0 },
-        bun = $scope.burger.bun ? JSON.parse($scope.burger.bun) : { name: 'No Bun', price: 0 },
-        sauce = $scope.burger.sauce ? JSON.parse($scope.burger.sauce) : { name: 'No Sauce', price: 0 },
-        topping = $scope.burger.topping ? JSON.parse($scope.burger.topping) : { name: 'No Topping', price: 0 },
-        cheese = $scope.burger.cheese ? JSON.parse($scope.burger.cheese) : { name: 'No Cheese', price: 0 },
-        side = $scope.burger.side ? JSON.parse($scope.burger.side) : { name: 'No Side', price: 0 };*/
 
-      summaryData.innerHTML = burger.meat.name + ' on ' + burger.bun.name + ' with ' + burger.sauces.name + ', ' +
-        burger.toppings.name + ', ' + burger.cheese.name + ' and ' + burger.side.name;
+      summaryData.innerHTML = burger.meat.name + ' on ' + 
+      burger.bun.name + ' with ' + 
+      burger.sauces.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
+      ', ' + burger.toppings.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
+      ', ' + burger.cheeses.reduce(function(a, b) { return a !== false ? a + ' and ' + b.name : b.name; }, false) + 
+      ', ' + burger.side.name;
       row.append(summaryData);
 
       var quantityInput = document.createElement('input');
@@ -100,14 +143,22 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       quantityData.appendChild(quantityInput);
       row.append(quantityData);
 
-      priceData.innerHTML = (burger.meat.price + burger.bun.price + burger.sauces.price + 
-        burger.toppings.price + burger.cheese.price + burger.side.price).toFixed(2);
+      priceData.innerHTML = (
+        burger.meat.price + 
+        burger.bun.price + 
+        burger.sauces.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
+        burger.toppings.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
+        burger.cheeses.reduce(function(a,b){ return a !== false ? a + b.price : b.price; }, false) + 
+        burger.side.price
+        ).toFixed(2);
       priceData.innerHTML = '$' + priceData.innerHTML;
       row.append(priceData);
 
       var removeButton = $(document.createElement('button'));
       removeButton.attr({ type: 'button', 'data-burger-num': burgerIndex });
       removeButton.html('X');
+      
+      // add event listner to remove order
       removeButton.click(function(event) {
         console.log('removing burger');
         var burgerIndex = Number($(this).attr('data-burger-num'));
@@ -115,8 +166,11 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         $('#' + rowPreId + burgerIndex).remove();
       });
       row.append(removeButton);
-      $scope.burger = {};
-      row.attr('burgerRow');
+      
+      // empty out the form model
+      $scope.burger.empty();
+
+      // append data to order table
       row.attr({ id: rowPreId + burgerIndex });
       $('#order_table').append(row);
     };
@@ -127,15 +181,5 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         price: $scope.side.price
       };
       $scope.order.sides.push(side);
-    };
-}])
-.directive('burgerRow', ['$document', 
-  function($document){
-  // Runs during compile
-  return function(scope, element, attr) {
-        element.on('click', function(event) {
-          event.preventDefault();
-          element.remove();
-        });
     };
 }]);

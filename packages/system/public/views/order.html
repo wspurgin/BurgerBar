@@ -33,33 +33,34 @@
 			<form id="burgerForm" ng-submit="addBurgerToOrder()">
 				<h3>Meats</h3>
 				<fieldset>
-					<label for="meats" ng-repeat-start="meat in menu.meats">{{meat.name}}</label>
-					<input type="radio" id="meats" name="meat" ng-model="burger.meat" ng-repeat-end="meat in menu.meats" value="{{meat}}" />
+					<label for="meats" ng-repeat-start="meat in menu.meats">{{meat.name}} ({{meat.price | currency}})</label>
+					<input type="radio" name="meat" ng-model="burger.meat" ng-repeat-end="meat in menu.meats" value="{{meat}}" />
 				</fieldset>
 				<h3>Buns</h3>
 				<fieldset>
-					<label for="buns" ng-repeat-start="bun in menu.buns">{{bun.name}}</label>
-					<input type="radio" id="buns" name="bun" ng-model="burger.bun" ng-repeat-end="bun in menu.buns" value="{{bun}}" />
+					<label for="buns" ng-repeat-start="bun in menu.buns">{{bun.name}} ({{bun.price | currency}})</label>
+					<input type="radio" name="bun" ng-model="burger.bun" ng-repeat-end="bun in menu.buns" value="{{bun}}" />
 				</fieldset>
 				<h3>Cheeses</h3>
 				<fieldset>
-					<label for="cheeses" ng-repeat-start="cheese in menu.cheeses">{{cheese.name}}</label>
-					<input type="radio" id="cheeses" name="cheese" ng-model="burger.cheese" ng-repeat-end="cheese in menu.cheeses" value="{{cheese}}" />
+					<label for="{{cheese.name}}" ng-repeat-start="cheese in menu.cheeses">{{cheese.name}} ({{cheese.price | currency}})</label>
+					<input type="checkbox" name="selectedCheese[]" ng-repeat-end="cheese in menu.cheeses" ng-model="$parent.burger.cheeses[$index]" />
 				</fieldset>
 				<h3>Toppings</h3>
 				<fieldset>
-					<label for="{{topping.name}}" ng-repeat-start="topping in menu.topping">{{topping.name}}</label>
-					<input type="radio" id="toppings" name="topping" ng-model="burger.topping" ng-repeat-end="topping in menu.toppings" value="{{topping}}" />
+					<label for="{{topping.name}}" ng-repeat-start="topping in menu.topping">{{topping.name}} ({{topping.price | currency}})</label>
+					<input type="checkbox" name="selectedToppings[]" ng-repeat-end="topping in menu.toppings" ng-model="$parent.burger.toppings[$index]"/>
+					</label>
 				</fieldset>
 				<h3>Sauces</h3>
 				<fieldset>
-					<label for="sauces" ng-repeat-start="sauce in menu.sauces">{{sauce.name}}</label>
-					<input type="radio" id="sauces" name="sauce" ng-model="burger.sauce" ng-repeat-end="sauce in menu.sauces" value="{{sauce}}" />
+					<label for="{{sauce.name}}" ng-repeat-start="sauce in menu.sauces">{{sauce.name}} ({{sauce.price | currency}})</label>
+					<input type="checkbox" name="selectedSauces[]" ng-model="$parent.burger.sauces[$index]" ng-repeat-end="sauce in menu.sauces"/>
 				</fieldset>
 				<h3>Sides</h3>
 				<fieldset>
-					<label for="sides" ng-repeat-start="side in menu.sides">{{side.name}}</label>
-					<input type="radio" id="sides" name="side" ng-model="burger.side" ng-repeat-end="side in menu.sides" value="{{side}}" />
+					<label for="sides" ng-repeat-start="side in menu.sides">{{side.name}} ({{side.price | currency}})</label>
+					<input type="radio" name="side" ng-model="burger.side" ng-repeat-end="side in menu.sides" value="{{side}}" />
 				</fieldset>
 				<button type="submit">Add Burger to Order</button>
 			</form>
