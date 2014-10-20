@@ -67,9 +67,9 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
             $scope.user = {
               name: response.name,
               creditCardNumber: response.creditCardNumber,
-              lastOrder: response.lastOrder
+              lastOrder: response.lastOrder,
+              creditCardProvider: response.creditCardProvider
             };
-            $scope.user[response.creditCardProvider] = true;
             if (response.lastOrder) displayLastOrder();
           }
         });
@@ -136,10 +136,11 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       orderTable.append(row);
     }
 
-    // Bootstrap page and scope variables.
+    /* 
+     * Bootstraping menu and user data.
+     */
     getMenu();
     getUserInfo();
-    
 
     $scope.testForProvider = function() {
       // test the different credit card types
@@ -183,12 +184,19 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
         })
         .success(function() {
           alert('Thank you for your order!');
-          $location.url('/');
+          window.location.reload();
         })
         .error(function() {
           alert('Could not place order. Check network connection and try again');
         });
       }
+    }
+
+    $scope.selectProvider = function() {
+      $('form[name="payment"] > select').children().each(function(option) {
+        if($scope.user[option.val()] === true)
+          option.attr('selected', 'true');
+      })
     }
 
     $scope.placeOrder = function() {
@@ -201,7 +209,7 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
       event.preventDefault();
       console.log($scope.user.lastOrder);
       _order($scope.user.lastOrder);
-    }
+    };
 
     $scope.addBurgerToOrder = function() {
       // init burger

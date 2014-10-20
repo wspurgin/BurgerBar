@@ -9,7 +9,7 @@
 					</fieldset>
 					<fieldset>
 						<label for="credit-provider">Credit Card Provider</label>
-						<select ng-model="creditCardProvider" ng-options="card.name for card in cards track by card.value">
+						<select ng-model="creditCardProvider" ng-options="card.name for card in cards track by card.value" ng-init="model.creditCardProvider=user.creditCardProvider">
 							<option value="">-- Select Credit Card Provider --</option>
 						</select>
 					</fieldset>
